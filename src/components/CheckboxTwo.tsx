@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const CheckboxTwo = () => {
   const [isChecked, setIsChecked] = useState(false)
@@ -7,7 +7,7 @@ const CheckboxTwo = () => {
     <div>
       <label
         htmlFor='checkboxLabelTwo'
-        className='flex cursor-pointer select-none items-center'
+        className='flex items-center cursor-pointer select-none'
       >
         <div className='relative'>
           <input

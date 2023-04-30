@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import UserOne from "../images/user/user-01.png";
@@ -48,7 +48,7 @@ const DropdownUser = () => {
           <span className="block text-xs">UX Designer</span>
         </span>
 
-        <span className="h-12 w-12 rounded-full">
+        <span className="w-12 h-12 rounded-full">
           <img src={UserOne} alt="User" />
         </span>
 

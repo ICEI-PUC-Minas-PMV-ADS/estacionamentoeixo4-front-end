@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const SwitcherOne = () => {
   const [enabled, setEnabled] = useState(false)
@@ -7,7 +7,7 @@ const SwitcherOne = () => {
     <div>
       <label
         htmlFor='toggle1'
-        className='flex cursor-pointer select-none items-center'
+        className='flex items-center cursor-pointer select-none'
       >
         <div className='relative'>
           <input
