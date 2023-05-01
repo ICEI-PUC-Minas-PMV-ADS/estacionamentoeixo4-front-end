@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import UserOne from "../images/user/user-01.png";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -43,13 +42,13 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            Admin
           </span>
-          <span className="block text-xs">UX Designer</span>
+          <span className="block text-xs">PUC</span>
         </span>
 
         <span className="w-12 h-12 rounded-full">
-          <img src={UserOne} alt="User" />
+          <img src="./logo.png" alt="User" />
         </span>
 
         <svg

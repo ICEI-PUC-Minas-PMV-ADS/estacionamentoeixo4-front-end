@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import SidebarLinkGroup from "./SidebarLinkGroup";
-// import Logo from "../images/logo/logo.svg";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const location = useLocation();
@@ -20,8 +19,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     const clickHandler = ({ target }) => {
       if (!sidebar.current || !trigger.current) return;
 
-      const sid = (sidebar.current as any) || "";
-      const trig = (trigger.current as any) || "";
+      const sid = (sidebar.current as HTMLElement) || "";
+      const trig = (trigger.current as HTMLElement) || "";
       if (!sidebarOpen || sid.contains(target) || trig.contains(target)) return;
       setSidebarOpen(false);
     };
@@ -60,9 +59,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
-      <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-        <NavLink to="/">
-          <h1 className="text-4xl">Why Park</h1>
+      <div className="flex items-center justify-between gap-2 px-6 py-2 lg:py-2">
+        <NavLink to="/" className="flex items-center justify-center w-full pr-4 ">
+          <img src="./logo.png" className="w-22" alt="logo why parck" />
         </NavLink>
 
         <button
@@ -91,7 +90,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
       <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
         {/* <!-- Sidebar Menu --> */}
-        <nav className="px-4 py-4 mt-5 lg:mt-9 lg:px-6">
+        <nav className="px-4 py-4 mt-2 lg:mt-2 lg:px-2">
           {/* <!-- Menu Group --> */}
           <div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">

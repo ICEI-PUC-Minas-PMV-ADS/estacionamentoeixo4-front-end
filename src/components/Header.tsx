@@ -1,4 +1,3 @@
-import LogoIcon from "../images/logo/logo-icon.svg";
 import DropdownNotification from "./DropdownNotification";
 import DropdownMessage from "./DropdownMessage";
 import DropdownUser from "./DropdownUser";
@@ -55,7 +54,7 @@ const Header = (props) => {
           {/* <!-- Hamburger Toggle BTN --> */}
 
           <Link className="flex-shrink-0 block lg:hidden" to="/">
-            <img src={LogoIcon} alt="Logo" />
+            <img src="./logo.png" className="w-12" alt="Logo" />
           </Link>
         </div>
 
@@ -88,7 +87,7 @@ const Header = (props) => {
 
               <input
                 type="text"
-                placeholder="Type to search..."
+                placeholder="Pesquise aqui ..."
                 className="w-full pr-4 bg-transparent pl-9 focus:outline-none"
               />
             </div>
