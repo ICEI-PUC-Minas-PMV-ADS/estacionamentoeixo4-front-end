@@ -12,6 +12,10 @@ import Alerts from "./pages/UiElements/Alerts";
 import Buttons from "./pages/UiElements/Buttons";
 import SignIn from "./pages/Authentication/SignIn";
 import SignUp from "./pages/Authentication/SignUp";
+import Home from "./pages/Home";
+import { ThemeProvider, createTheme } from "@mui/material";
+import useColorMode from "./hooks/useColorMode";
+import UseLocalStorage from "./hooks/useLocalStorage";
 
 const App = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
@@ -28,28 +32,57 @@ const App = (): JSX.Element => {
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
+  const [theme] = UseLocalStorage("color-theme", "light");
+
+  const themeLight = createTheme({
+    palette: {
+      background: {
+        default: "#e4f0e2",
+      },
+      primary: {
+        main: "#ff0000",
+        contrastText: "#fff",
+      },
+    },
+  });
+
+  const themeDark = createTheme({
+    palette: {
+      background: {
+        default: "#222222",
+      },
+      text: {
+        primary: "#ffffff",
+      },
+    },
+  });
 
   return (
-    <div>
-      {!loading && (
-        <div>
-          <Routes>
-            <Route path="/" element={<Analytics />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/forms/form-elements" element={<FormElements />} />
-            <Route path="/forms/form-layout" element={<FormLayout />} />
-            <Route path="/tables" element={<Tables />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/chart" element={<Chart />} />
-            <Route path="/ui/alerts" element={<Alerts />} />
-            <Route path="/ui/buttons" element={<Buttons />} />
-            <Route path="/auth/signin" element={<SignIn />} />
-            <Route path="/auth/signup" element={<SignUp />} />
-          </Routes>
-        </div>
-      )}
-    </div>
+    <ThemeProvider theme={theme === "light" ? themeLight : themeDark}>
+      <div>
+        {!loading && (
+          <div>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/adm" element={<Analytics />} />
+
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/forms/form-elements" element={<FormElements />} />
+              <Route path="/forms/form-layout" element={<FormLayout />} />
+              <Route path="/tables" element={<Tables />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/chart" element={<Chart />} />
+              <Route path="/ui/alerts" element={<Alerts />} />
+              <Route path="/ui/buttons" element={<Buttons />} />
+              <Route path="/auth/signin" element={<SignIn />} />
+              <Route path="/auth/signup" element={<SignUp />} />
+            </Routes>
+          </div>
+        )}
+      </div>
+    </ThemeProvider>
   );
 };
 

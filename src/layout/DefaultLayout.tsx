@@ -11,33 +11,42 @@ const DefaultLayout = ({ children }) => {
 
   if (pathname === "/auth/signin") {
     return (
-      <main>
-        <div className="mx-auto max-w-screen-2xl">
-          {children}
-        </div>
-      </main>
-    );
-  }
-  if (pathname === "/auth/signup") {
-    return (
-      <main>
-        <div className="mx-auto max-w-screen-2xl ">
-          {children}
-        </div>
+      <main className="flex flex-col w-full h-screen overflow-hidden">
+        <div className="mx-auto max-w-screen-2xl">{children}</div>
       </main>
     );
   }
 
+  if (pathname === "/auth/signup") {
+    return (
+      <main className="flex flex-col w-full h-screen overflow-hidden">
+        <div className="mx-auto max-w-screen-2xl ">{children}</div>
+      </main>
+    );
+  }
+
+  if (pathname === "/") {
+    return (
+      <main className="flex flex-col w-full h-screen overflow-x-hidden">
+        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        {/* <!-- ===== Header Start ===== --> */}
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        {/* <!-- ===== Header End ===== --> */}
+        <div className="mx-auto max-w-screen-2xl ">{children}</div>
+      </main>
+    );
+  }
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
-        { pathname !== "/auth/signup" && pathname !== "/auth/signin" ?
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        :''
-      }
-      {/* <!-- ===== Sidebar End ===== --> */}
+        {pathname !== "/auth/signup" && pathname !== "/auth/signin" ? (
+          <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        ) : (
+          ""
+        )}
+        {/* <!-- ===== Sidebar End ===== --> */}
         {/* <!-- ===== Content Area Start ===== --> */}
         <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
           {/* <!-- ===== Header Start ===== --> */}

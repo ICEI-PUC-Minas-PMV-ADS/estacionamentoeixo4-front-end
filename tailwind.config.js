@@ -63,6 +63,7 @@ module.exports = {
         'title-xsm': ['18px', '24px'],
       },
       spacing: {
+        4.79: '12rem',
         4.5: '1.125rem',
         5.5: '1.375rem',
         6.5: '1.625rem',
@@ -206,6 +207,7 @@ module.exports = {
         65: '.65',
       },
       backgroundImage: {
+        banner: "url('../src/images/cover/banner.jpg')",
         video: "url('../images/video/video.png')",
       },
       content: {

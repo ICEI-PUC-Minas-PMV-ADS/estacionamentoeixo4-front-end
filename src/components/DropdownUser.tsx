@@ -1,19 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-
+import { useLocation } from "react-router-dom";
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
+  const { pathname } = useLocation();
+
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
-      const drop = (dropdown.current as any) || "";
-      const trig = (trigger.current as any) || "";
+      const drop = (dropdown.current as HTMLDivElement) || "";
+      const trig = (trigger.current as unknown as HTMLAnchorElement) || "";
       if (!dropdownOpen || drop.contains(target) || trig?.contains(target))
         return;
       setDropdownOpen(false);
@@ -47,9 +48,13 @@ const DropdownUser = () => {
           <span className="block text-xs">PUC</span>
         </span>
 
-        <span className="w-12 h-12 rounded-full">
-          <img src="./logo.png" alt="User" />
-        </span>
+        {pathname !== "/" &&
+          pathname !== "/auth/signup" &&
+          pathname !== "/auth/signin" && (
+            <span className="w-12 h-12 rounded-full">
+              <img src="./logo.png" alt="User" />
+            </span>
+          )}
 
         <svg
           className={`hidden fill-current sm:block ${
