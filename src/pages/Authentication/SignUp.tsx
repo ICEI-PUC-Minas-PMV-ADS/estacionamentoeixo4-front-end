@@ -5,20 +5,16 @@ import Field, { TypeForm } from "../../components/Field";
 import { InputAdornment } from "@mui/material";
 import Email from "@mui/icons-material/Email";
 import Person from "@mui/icons-material/Person";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import PasswordInput from "../../components/FieldPassword";
+import { useEffect } from "react";
 
 const SignUp = () => {
-  const { register, handleSubmit, control } = useForm<TypeForm>({
+  const { register, handleSubmit, watch } = useForm<TypeForm>({
     defaultValues: {
       password: "",
       passwordRepeat: "",
     },
-  });
-
-  const pass = useWatch({
-    control,
-    name: "password",
   });
 
   const onSubmit = (data) => {
@@ -33,6 +29,7 @@ const SignUp = () => {
             <Field
               register={register}
               name="name"
+              defaultValue={watch("name")}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end" className="mr-1">
@@ -41,7 +38,7 @@ const SignUp = () => {
                 ),
               }}
               variant="filled"
-              label="Email"
+              label="Entre com nome"
               className="w-full py-3 pl-6 pr-10 border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none "
             />
           </div>
@@ -50,6 +47,7 @@ const SignUp = () => {
           <Field
             register={register}
             name="email"
+            defaultValue={watch("email")}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end" className="mr-1">
@@ -58,16 +56,17 @@ const SignUp = () => {
               ),
             }}
             variant="filled"
-            label="Email"
+            label="Entre com email"
             className="w-full py-3 pl-6 pr-10 border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none "
           />
         </div>
         <div className="mb-2">
           <div className="relative">
             <PasswordInput
+              defaultValue={watch("password")}
               name={"password"}
               register={register}
-              label="Password"
+              label="Entre com a senha"
               className="w-full py-3 pl-6 pr-10 border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none "
             />
           </div>
@@ -75,6 +74,7 @@ const SignUp = () => {
         <div className="mb-3">
           <div className="relative">
             <PasswordInput
+              defaultValue={watch("passwordRepeat")}
               register={register}
               name={"passwordRepeat"}
               label="Repita a senha"
@@ -93,11 +93,10 @@ const SignUp = () => {
           <p>
             Ja tem uma conta?{" "}
             <Link to="/auth/signin" className="text-primary">
-              Sign in
+              Login
             </Link>
           </p>
         </div>
-        {pass}
       </form>
     </ComponentAuth>
   );

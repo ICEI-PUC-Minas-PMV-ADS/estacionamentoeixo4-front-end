@@ -1,74 +1,20 @@
-// import React, { useState } from "react";
-// import { IconButton, InputAdornment } from "@mui/material";
-// import { Visibility, VisibilityOff } from "@mui/icons-material";
-// import { UseFormRegister } from "react-hook-form";
-// import Field from "./Field";
-
-// type FieldPassword = {
-//   [key: string]: string | number;
-// };
-// interface PasswordInputProps {
-//   label: string;
-//   register: UseFormRegister<FieldPassword>;
-//   name: string;
-//   className?: React.InputHTMLAttributes<unknown>["className"];
-// }
-
-// const PasswordInput = ({
-//   label,
-//   register,
-//   name,
-//   className,
-// }: PasswordInputProps) => {
-//   const [showPassword, setShowPassword] = useState(false);
-
-//   const handleClickShowPassword = () => {
-//     setShowPassword(!showPassword);
-//   };
-
-//   const handleMouseDownPassword = (
-//     event: React.MouseEvent<HTMLButtonElement>
-//   ) => {
-//     event.preventDefault();
-//   };
-
-//   return (
-//     <Field
-//       variant="filled"
-//       name={name}
-//       type={showPassword ? "text" : "password"}
-//       register={register}
-//       label={label}
-//       className={className}
-//       InputProps={{
-//         endAdornment: (
-//           <InputAdornment position="end">
-//             <IconButton
-//               onClick={handleClickShowPassword}
-//               onMouseDown={handleMouseDownPassword}
-//               edge="end"
-//             >
-//               {showPassword ? <VisibilityOff /> : <Visibility />}
-//             </IconButton>
-//           </InputAdornment>
-//         ),
-//       }}
-//     />
-//   );
-// };
-
-// export default PasswordInput;
 import React, { useState } from "react";
-import { IconButton, InputAdornment } from "@mui/material";
+import { IconButton, InputAdornment, InputProps } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { UseFormRegister } from "react-hook-form";
 import Field from "./Field";
 
 interface PasswordInputProps {
-  label: string;
-  register: UseFormRegister<{ [key: string]: string | number }>;
+  label?: string;
+  id?: string;
   name: string;
+  variant?: "filled" | "outlined" | "standard";
+  type?: React.InputHTMLAttributes<unknown>["type"];
   className?: React.InputHTMLAttributes<unknown>["className"];
+  defaultValue?: React.InputHTMLAttributes<unknown>["defaultValue"];
+  onChange?: React.InputHTMLAttributes<unknown>["onChange"];
+  InputProps?: InputProps;
+  register: UseFormRegister<{ [key: string]: string | number }>;
 }
 
 const PasswordInput = ({
@@ -76,18 +22,18 @@ const PasswordInput = ({
   register,
   name,
   className,
-}: PasswordInputProps) => {
+}: PasswordInputProps): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
+  // const handleMouseDownPassword = (
+  //   event: React.MouseEvent<HTMLButtonElement>
+  // ) => {
+  //   event.preventDefault();
+  // };
 
   return (
     <Field
@@ -102,13 +48,13 @@ const PasswordInput = ({
           <InputAdornment position="end">
             <IconButton
               onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
+              // onMouseDown={handleMouseDownPassword}
               edge="end"
             >
               {showPassword ? (
                 <VisibilityOff className="text-primary" />
               ) : (
-                <Visibility className="text-primary"/>
+                <Visibility className="text-primary" />
               )}
             </IconButton>
           </InputAdornment>
