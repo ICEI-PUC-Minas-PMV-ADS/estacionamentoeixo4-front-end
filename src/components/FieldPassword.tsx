@@ -105,7 +105,11 @@ const PasswordInput = ({
               onMouseDown={handleMouseDownPassword}
               edge="end"
             >
-              {showPassword ? <VisibilityOff /> : <Visibility />}
+              {showPassword ? (
+                <VisibilityOff className="text-primary" />
+              ) : (
+                <Visibility className="text-primary"/>
+              )}
             </IconButton>
           </InputAdornment>
         ),
