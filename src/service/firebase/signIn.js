@@ -6,6 +6,7 @@ export const signIn = (email, senha) => {
     .then((userCredential) => {
       const user = userCredential.user;
       console.log(`Conta logada com sucesso no Firebase! Usuário: ${JSON.stringify(user)}`);
+      return userCredential
     })
     .catch((error) => {
       if (

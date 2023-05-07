@@ -6,6 +6,7 @@ const signUp = (email, senha) => {
     .then((userCredential) => {
       const user = userCredential.user
       console.log(`Conta criada com sucesso no Firebase! Usuário: ${JSON.stringify(user)}`);
+      return userCredential
     })
     .catch((error) => {
       if (error.message.includes("email-already-in-use")) {
