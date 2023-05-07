@@ -1,28 +1,87 @@
-import {
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputBaseComponentProps,
-  InputLabel,
-  OutlinedInput,
-  styled,
-} from "@mui/material";
-import React from "react";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-type TProps = {
-  label?: string;
-  id?: string;
-  variant: "filled" | "outlined" | "standard";
-  type?: React.InputHTMLAttributes<unknown>["type"];
+// import React, { useState } from "react";
+// import { IconButton, InputAdornment } from "@mui/material";
+// import { Visibility, VisibilityOff } from "@mui/icons-material";
+// import { UseFormRegister } from "react-hook-form";
+// import Field from "./Field";
+
+// type FieldPassword = {
+//   [key: string]: string | number;
+// };
+// interface PasswordInputProps {
+//   label: string;
+//   register: UseFormRegister<FieldPassword>;
+//   name: string;
+//   className?: React.InputHTMLAttributes<unknown>["className"];
+// }
+
+// const PasswordInput = ({
+//   label,
+//   register,
+//   name,
+//   className,
+// }: PasswordInputProps) => {
+//   const [showPassword, setShowPassword] = useState(false);
+
+//   const handleClickShowPassword = () => {
+//     setShowPassword(!showPassword);
+//   };
+
+//   const handleMouseDownPassword = (
+//     event: React.MouseEvent<HTMLButtonElement>
+//   ) => {
+//     event.preventDefault();
+//   };
+
+//   return (
+//     <Field
+//       variant="filled"
+//       name={name}
+//       type={showPassword ? "text" : "password"}
+//       register={register}
+//       label={label}
+//       className={className}
+//       InputProps={{
+//         endAdornment: (
+//           <InputAdornment position="end">
+//             <IconButton
+//               onClick={handleClickShowPassword}
+//               onMouseDown={handleMouseDownPassword}
+//               edge="end"
+//             >
+//               {showPassword ? <VisibilityOff /> : <Visibility />}
+//             </IconButton>
+//           </InputAdornment>
+//         ),
+//       }}
+//     />
+//   );
+// };
+
+// export default PasswordInput;
+import React, { useState } from "react";
+import { IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { UseFormRegister } from "react-hook-form";
+import Field from "./Field";
+
+interface PasswordInputProps {
+  label: string;
+  register: UseFormRegister<{ [key: string]: string | number }>;
+  name: string;
   className?: React.InputHTMLAttributes<unknown>["className"];
-  props?: InputBaseComponentProps;
-};
+}
 
-const FieldPassword = ({ className, id, label, props }: TProps) => {
-  const [showPassword, setShowPassword] = React.useState(false);
+const PasswordInput = ({
+  label,
+  register,
+  name,
+  className,
+}: PasswordInputProps) => {
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -30,57 +89,18 @@ const FieldPassword = ({ className, id, label, props }: TProps) => {
     event.preventDefault();
   };
 
-  const Field = styled(OutlinedInput)({
-    ".MuiInputBase-root": {
-      paddingLeft: "2px",
-      backgroundColor: "white",
-      borderTopLeftRadius: "0.5rem",
-      borderTopRightRadius: "0.5rem",
-      color: "#000000",
-    },
-
-    // input label when focused
-    "& label.Mui-focused": {
-      color: "#5E5CE5",
-    },
-    "& .MuiInput-underline:before": {
-      color: "#5E5CE5",
-    },
-    // focused color for input with variant='standard'
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "#5E5CE5",
-    },
-    // focused color for input with variant='filled'
-    "& .MuiFilledInput-underline:after": {
-      borderBottomColor: "#5E5CE5",
-    },
-
-    "& .MuiFilledInput": {
-      backgroundColor: "#fff",
-    },
-    // focused color for input with variant='outlined'
-    "& .MuiOutlinedInput-root": {
-      "&.Mui-focused fieldset": {
-        borderColor: "#5E5CE5",
-      },
-      "&.Mui-hover fieldset": {
-        borderColor: "#5E5CE5",
-      },
-    },
-  });
-
   return (
-    <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-      <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-      <Field
-        id={id}
-        className={className}
-        type={showPassword ? "text" : "password"}
-        inputProps={props}
-        endAdornment={
+    <Field
+      register={register}
+      variant="filled"
+      type={showPassword ? "text" : "password"}
+      name={name}
+      label={label}
+      className={className}
+      InputProps={{
+        endAdornment: (
           <InputAdornment position="end">
             <IconButton
-              aria-label="toggle password visibility"
               onClick={handleClickShowPassword}
               onMouseDown={handleMouseDownPassword}
               edge="end"
@@ -88,11 +108,10 @@ const FieldPassword = ({ className, id, label, props }: TProps) => {
               {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
-        }
-        label={label}
-      />
-    </FormControl>
+        ),
+      }}
+    />
   );
 };
 
-export default FieldPassword;
+export default PasswordInput;
