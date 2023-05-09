@@ -7,7 +7,7 @@ import Email from "@mui/icons-material/Email";
 import Person from "@mui/icons-material/Person";
 import { useForm } from "react-hook-form";
 import PasswordInput from "../../components/FieldPassword";
-import { useEffect } from "react";
+import { signUp } from "../../service/firebase/signUp";
 
 const SignUp = () => {
   const { register, handleSubmit, watch } = useForm<TypeForm>({
@@ -19,6 +19,8 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+
+    signUp(data.email, data.password)
   };
 
   return (

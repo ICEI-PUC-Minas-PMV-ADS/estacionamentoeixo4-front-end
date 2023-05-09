@@ -13,9 +13,9 @@ export const signIn = (email, senha) => {
         error.message.includes("auth/wrong-password") ||
         error.message.includes("firebase.login.error")
       ) {
-        Alert.alert("Email ou senha inválido. Tente novamente.");
+        alert("Email ou senha inválido. Tente novamente.");
       } else {
-        Alert.alert("Erro inesperado, tente novamente mais tarde.");
+        alert("Erro inesperado, tente novamente mais tarde.");
       }
 
       throw new Error("firebase.login.error: ", error);

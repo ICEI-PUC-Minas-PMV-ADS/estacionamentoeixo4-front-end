@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { InputAdornment } from "@mui/material";
 import { Email } from "@mui/icons-material";
 import PasswordInput from "../../components/FieldPassword";
+import { signIn } from "../../service/firebase/signIn";
 const SignIn = () => {
   const { register, handleSubmit, getValues } = useForm<{
     [key: string]: string | number;
@@ -19,6 +20,8 @@ const SignIn = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+
+    signIn(data.email, data.password)
   };
 
   return (
