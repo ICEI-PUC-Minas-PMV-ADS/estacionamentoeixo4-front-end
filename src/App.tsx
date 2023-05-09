@@ -14,7 +14,6 @@ import SignIn from "./pages/Authentication/SignIn";
 import SignUp from "./pages/Authentication/SignUp";
 import Home from "./pages/Home";
 import { ThemeProvider, createTheme } from "@mui/material";
-import useColorMode from "./hooks/useColorMode";
 import UseLocalStorage from "./hooks/useLocalStorage";
 
 const App = (): JSX.Element => {
