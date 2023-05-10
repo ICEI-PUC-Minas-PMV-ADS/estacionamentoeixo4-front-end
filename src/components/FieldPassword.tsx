@@ -29,11 +29,6 @@ const PasswordInput = ({
     setShowPassword(!showPassword);
   };
 
-  // const handleMouseDownPassword = (
-  //   event: React.MouseEvent<HTMLButtonElement>
-  // ) => {
-  //   event.preventDefault();
-  // };
 
   return (
     <Field
@@ -48,7 +43,6 @@ const PasswordInput = ({
           <InputAdornment position="end">
             <IconButton
               onClick={handleClickShowPassword}
-              // onMouseDown={handleMouseDownPassword}
               edge="end"
             >
               {showPassword ? (

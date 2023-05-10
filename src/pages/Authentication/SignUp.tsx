@@ -1,13 +1,13 @@
 /* eslint-disable no-debugger */
 import { Link } from "react-router-dom";
-import ComponentAuth from "./ComponentAuth";
-import Field, { TypeForm } from "../../components/Field";
+import ComponentAuth from "@pages/Authentication/componentes/ComponentAuth";
+import Field, { TypeForm } from "@components/Field";
 import { InputAdornment } from "@mui/material";
 import Email from "@mui/icons-material/Email";
 import Person from "@mui/icons-material/Person";
 import { useForm } from "react-hook-form";
-import PasswordInput from "../../components/FieldPassword";
-import { signUp } from "../../service/firebase/signUp";
+import PasswordInput from "@components/FieldPassword";
+import { signUp } from "@services/firebase/signUp";
 
 const SignUp = () => {
   const { register, handleSubmit, watch } = useForm<TypeForm>({
@@ -20,7 +20,7 @@ const SignUp = () => {
   const onSubmit = (data) => {
     console.log(data);
 
-    signUp(data.email, data.password)
+    signUp(data.email, data.password);
   };
 
   return (

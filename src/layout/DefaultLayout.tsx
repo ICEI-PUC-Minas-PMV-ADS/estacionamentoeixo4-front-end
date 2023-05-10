@@ -1,9 +1,10 @@
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
+import Sidebar from "@components/Sidebar";
+import Header from "@components/Header";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import menu, { menu_inital } from "@src/data/menu";
 
-const DefaultLayout = ({ children }) => {
+const DefaultLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const location = useLocation();
@@ -12,7 +13,9 @@ const DefaultLayout = ({ children }) => {
   if (pathname === "/auth/signin") {
     return (
       <main className="flex flex-col w-full h-screen overflow-hidden">
-        <div className="mx-auto max-w-screen-2xl">{children}</div>
+        <div className="mx-auto max-w-screen-2xl">
+          <Outlet />
+        </div>
       </main>
     );
   }
@@ -20,7 +23,9 @@ const DefaultLayout = ({ children }) => {
   if (pathname === "/auth/signup") {
     return (
       <main className="flex flex-col w-full h-screen overflow-hidden">
-        <div className="mx-auto max-w-screen-2xl ">{children}</div>
+        <div className="mx-auto max-w-screen-2xl ">
+          <Outlet />
+        </div>
       </main>
     );
   }
@@ -28,11 +33,18 @@ const DefaultLayout = ({ children }) => {
   if (pathname === "/") {
     return (
       <main className="flex flex-col w-full h-screen overflow-x-hidden">
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <Sidebar
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+          aria_control={"sidebar_home"}
+          menu={menu_inital}
+        />
         {/* <!-- ===== Header Start ===== --> */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         {/* <!-- ===== Header End ===== --> */}
-        <div className="mx-auto max-w-screen-2xl ">{children}</div>
+        <div className="mx-auto max-w-screen-2xl ">
+          <Outlet />
+        </div>
       </main>
     );
   }
@@ -42,7 +54,12 @@ const DefaultLayout = ({ children }) => {
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
         {pathname !== "/auth/signup" && pathname !== "/auth/signin" ? (
-          <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          <Sidebar
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+            aria_control={"sidebar_home"}
+            menu={menu}
+          />
         ) : (
           ""
         )}
@@ -56,7 +73,7 @@ const DefaultLayout = ({ children }) => {
           {/* <!-- ===== Main Content Start ===== --> */}
           <main>
             <div className="p-4 mx-auto max-w-screen-2xl md:p-6 2xl:p-10">
-              {children}
+              <Outlet />
             </div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}

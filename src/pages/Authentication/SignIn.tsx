@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import ComponentAuth from "./ComponentAuth";
-import Field from "../../components/Field";
+import ComponentAuth from "@pages/Authentication/componentes/ComponentAuth";
+import Field from "@components/Field";
 import { useForm } from "react-hook-form";
 import { InputAdornment } from "@mui/material";
 import { Email } from "@mui/icons-material";
-import PasswordInput from "../../components/FieldPassword";
-import { signIn } from "../../service/firebase/signIn";
+import PasswordInput from "@components/FieldPassword";
+import { signIn } from "@services/firebase/signIn";
 const SignIn = () => {
   const { register, handleSubmit, getValues } = useForm<{
     [key: string]: string | number;
@@ -21,7 +21,7 @@ const SignIn = () => {
   const onSubmit = (data) => {
     console.log(data);
 
-    signIn(data.email, data.password)
+    signIn(data.email, data.password);
   };
 
   return (

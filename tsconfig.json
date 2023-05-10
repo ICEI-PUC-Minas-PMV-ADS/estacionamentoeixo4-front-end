@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext", "WebWorker"],
     "module": "ESNext",
@@ -19,8 +20,19 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@components/*": ["./src/components/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@services/*": ["./src/services/*"],
+      "@images/*": ["./src/images/*"],
+      "@layout/*": ["./src/layout/*"],
+      "@hooks/*": ["./src/hooks/*"]
+    }
   },
-  "include": ["src"],
+  "include": ["src", "index.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
