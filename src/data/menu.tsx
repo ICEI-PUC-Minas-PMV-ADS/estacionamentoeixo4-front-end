@@ -24,12 +24,12 @@ export default [
     childrens: [
       {
         title: "Visualizar",
-        link: "/read",
+        link: "/dashboard/users/read",
         icon: <TableChartOutlined />,
       },
       {
         title: "Cadastrar",
-        link: "/create",
+        link: "/dashboard/users/create",
         icon: <AddBoxOutlined />,
       },
     ],
@@ -58,12 +58,12 @@ export default [
     childrens: [
       {
         title: "Visualizar",
-        link: "/read",
+        link: "/dashboard/estacionamento/read",
         icon: <TableChartOutlined />,
       },
       {
         title: "Cadastrar",
-        link: "/create",
+        link: "/dashboard/estacionamento/create",
         icon: <AddBoxOutlined />,
       },
     ],

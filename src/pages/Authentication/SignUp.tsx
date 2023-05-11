@@ -16,10 +16,10 @@ const SignUp = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const user = await signUp(data.email, data.password);
 
-    signUp(data.email, data.password);
+    debugger;
   };
 
   return (

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import DropdowLinks from "./DropdowLinks";
 import LinkMenu from "./LinkMenu";
-
+import Logo from "@images/logo/logo.png";
 const Sidebar = ({ sidebarOpen, setSidebarOpen, aria_control, menu }) => {
   const trigger = useRef(null);
   const sidebar = useRef(null);
@@ -50,7 +50,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, aria_control, menu }) => {
           to="/"
           className="flex items-center justify-center w-full pr-4 "
         >
-          <img src="./logo.png" className="w-22" alt="logo why parck" />
+          <img src={Logo} className="w-22" alt="logo why parck" />
         </NavLink>
 
         <button

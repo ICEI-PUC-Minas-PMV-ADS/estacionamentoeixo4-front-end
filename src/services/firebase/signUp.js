@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./config";
 
 export const signUp = (email, senha) => {
-  createUserWithEmailAndPassword(auth, email, senha)
+  return createUserWithEmailAndPassword(auth, email, senha)
     .then((userCredential) => {
       const user = userCredential.user
       console.log(`Conta criada com sucesso no Firebase! Usuário: ${JSON.stringify(user)}`);
