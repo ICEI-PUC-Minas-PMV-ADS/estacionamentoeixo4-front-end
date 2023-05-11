@@ -1,15 +1,34 @@
 import { TextField, styled, InputProps } from "@mui/material";
+import { UseFormRegister } from "react-hook-form";
 
+export type TypeForm = {
+  [key: string]: string | number;
+};
 type TProps = {
   label?: string;
   id?: string;
+  name: string;
   variant: "filled" | "outlined" | "standard";
   type?: React.InputHTMLAttributes<unknown>["type"];
   className?: React.InputHTMLAttributes<unknown>["className"];
-  props?: InputProps;
+  defaultValue?: React.InputHTMLAttributes<unknown>["defaultValue"];
+  onChange?: React.InputHTMLAttributes<unknown>["onChange"];
+  InputProps?: InputProps;
+  register: UseFormRegister<{ [key: string]: string | number }>;
 };
 
-const Field = ({ id, label, variant, props, type, className }: TProps) => {
+const Field = ({
+  id,
+  label,
+  variant,
+  type,
+  name,
+  className,
+  defaultValue,
+  InputProps,
+  onChange,
+  register,
+}: TProps) => {
   const CssTextField = styled(TextField)({
     ".MuiInputBase-root": {
       paddingLeft: "2px",
@@ -50,10 +69,13 @@ const Field = ({ id, label, variant, props, type, className }: TProps) => {
   return (
     <CssTextField
       id={id}
+      {...register(name)}
       className={className}
       label={label}
       variant={variant}
-      InputProps={props}
+      onChange={onChange}
+      defaultValue={defaultValue}
+      InputProps={InputProps}
       type={type}
     />
   );

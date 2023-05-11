@@ -1,18 +1,17 @@
-import DefaultLayout from "../../layout/DefaultLayout";
-import Breadcrumb from "../../components/Breadcrumb";
-import SwitcherOne from "../../components/SwitcherOne";
-import SwitcherTwo from "../../components/SwitcherTwo";
-import SwitcherFour from "../../components/SwitcherFour";
-import SwitcherThree from "../../components/SwitcherThree";
-import CheckboxOne from "../../components/CheckboxOne";
-import CheckboxTwo from "../../components/CheckboxTwo";
-import CheckboxThree from "../../components/CheckboxThree";
-import CheckboxFour from "../../components/CheckboxFour";
-import CheckboxFive from "../../components/CheckboxFive";
+import Breadcrumb from "@components/Breadcrumb";
+import SwitcherOne from "@components/SwitcherOne";
+import SwitcherTwo from "@components/SwitcherTwo";
+import SwitcherFour from "@components/SwitcherFour";
+import SwitcherThree from "@components/SwitcherThree";
+import CheckboxOne from "@components/CheckboxOne";
+import CheckboxTwo from "@components/CheckboxTwo";
+import CheckboxThree from "@components/CheckboxThree";
+import CheckboxFour from "@components/CheckboxFour";
+import CheckboxFive from "@components/CheckboxFive";
 
 const FormElements = () => {
   return (
-    <DefaultLayout>
+    <div className="w-full h-full">
       <Breadcrumb pageName="FormElements" />
 
       <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
@@ -376,7 +375,7 @@ const FormElements = () => {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </div>
   );
 };
 

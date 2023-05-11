@@ -1,21 +1,20 @@
-import DefaultLayout from '../layout/DefaultLayout';
-import Breadcrumb from '../components/Breadcrumb';
-import TableOne from '../components/TableOne';
-import TableTwo from '../components/TableTwo';
-import TableThree from '../components/TableThree';
+import Breadcrumb from "../components/Breadcrumb";
+import TableOne from "../components/TableOne";
+import TableTwo from "../components/TableTwo";
+import TableThree from "../components/TableThree";
 
 const Tables = () => {
   return (
-    <DefaultLayout>
-      <Breadcrumb pageName='Tables' />
+    <div className="w-full h-full">
+      <Breadcrumb pageName="Tables" />
 
-      <div className='flex flex-col gap-10'>
+      <div className="flex flex-col gap-10">
         <TableOne />
         <TableTwo />
         <TableThree />
       </div>
-    </DefaultLayout>
-  )
-}
+    </div>
+  );
+};
 
 export default Tables;
