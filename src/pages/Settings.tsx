@@ -1,10 +1,9 @@
-import DefaultLayout from "../layout/DefaultLayout";
 import Breadcrumb from "../components/Breadcrumb";
 import userThree from "../images/user/user-03.png";
 
 const Settings = () => {
   return (
-    <DefaultLayout>
+    <div className="w-full h-full">
       <div className="mx-auto max-w-270">
         <Breadcrumb pageName="Settings" />
 
@@ -305,7 +304,7 @@ const Settings = () => {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </>
   );
 };
 

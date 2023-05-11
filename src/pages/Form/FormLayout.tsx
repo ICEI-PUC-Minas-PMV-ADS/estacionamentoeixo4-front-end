@@ -1,9 +1,8 @@
-import DefaultLayout from "../../layout/DefaultLayout";
-import Breadcrumb from "../../components/Breadcrumb";
+import Breadcrumb from "@components/Breadcrumb";
 
 const FormLayout = () => {
   return (
-    <DefaultLayout>
+    <div className="w-full h-full">
       <Breadcrumb pageName="FormLayout" />
 
       <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
@@ -251,7 +250,7 @@ const FormLayout = () => {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </div>
   );
 };
 

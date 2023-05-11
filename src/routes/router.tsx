@@ -1,5 +1,7 @@
+import DefaultLayout from "@src/layout/DefaultLayout";
 import SignIn from "@src/pages/Authentication/SignIn";
 import SignUp from "@src/pages/Authentication/SignUp";
+import ComponentAuth from "@src/pages/Authentication/componentes/ComponentAuth";
 import Analytics from "@src/pages/Dashboard/Analytics";
 import Home from "@src/pages/Home";
 import Tables from "@src/pages/Tables";
@@ -9,30 +11,38 @@ const routes = createBrowserRouter([
   {
     path: "/",
     Component: () => {
-      return <Home />;
+      return <DefaultLayout />;
     },
-  },
-  {
-    path: "/dashboard",
-    Component: () => <Analytics />,
-    children: [],
-  },
-  {
-    path: "/auth",
     children: [
       {
-        path: "auth/signin",
-        Component: () => <SignIn />,
+        index: true,
+        Component: Home,
       },
       {
-        path: "auth/signup",
-        Component: () => <SignUp />,
+        path: "/dashboard",
+        Component: () => <Analytics />,
+        children: [],
+      },
+
+      {
+        path: "/tabelas",
+        Component: () => <Tables />,
       },
     ],
   },
   {
-    path: "/tabelas",
-    Component: () => <Tables />,
+    path: "/auth",
+    Component: () => <ComponentAuth />,
+    children: [
+      {
+        path: "signin",
+        Component: () => <SignIn />,
+      },
+      {
+        path: "signup",
+        Component: () => <SignUp />,
+      },
+    ],
   },
 ]);
 

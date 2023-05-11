@@ -1,15 +1,11 @@
-import DefaultLayout from "@layout/DefaultLayout";
 import EscritaImage from "@images/logo/escrita.svg";
 import RodaImage from "@images/logo/roda.svg";
-import { Link } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
-type TProps = {
-  children: JSX.Element;
-  title: string;
-};
-const ComponentAuth = (props: TProps) => {
+const ComponentAuth = () => {
+  const { pathname } = useLocation();
   return (
-    <DefaultLayout>
+    <div className="w-full h-full">
       <div className="w-screen h-screen overflow-hidden ">
         <div className="grid items-center justify-center w-full h-full grid-cols-1 gap-0 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
           <div className="flex-col items-center justify-center hidden w-full h-screen space-y-4 bg-black dark:bg-boxdark sm:flex md:flex lg:flex">
@@ -33,14 +29,15 @@ const ComponentAuth = (props: TProps) => {
           <div className="flex flex-col items-center justify-center w-full h-screen pt-12 ">
             <div className="flex flex-col items-center w-full ">
               <h2 className="text-4xl font-bold text-black mb-9 dark:text-boxdark sm:text-title-xl2">
-                {props.title}
+                {pathname === "/auth" ||
+                  (pathname !== "/auth/signup" ? "Entrar" : "Cadastrar")}
               </h2>
-              {props.children}
+              <Outlet />
             </div>
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </div>
   );
 };
 
