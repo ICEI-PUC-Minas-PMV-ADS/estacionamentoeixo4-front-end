@@ -1,9 +1,18 @@
 import EscritaImage from "@images/logo/escrita.svg";
 import RodaImage from "@images/logo/roda.svg";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const ComponentAuth = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    //se for /auth navega para sigin
+    if (pathname === "/auth") {
+      navigate("/auth/signin");
+    }
+  });
+
   return (
     <div className="w-full h-full">
       <div className="w-screen h-screen overflow-hidden ">

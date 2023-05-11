@@ -1,5 +1,5 @@
 /* eslint-disable no-debugger */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Field, { TypeForm } from "@components/Field";
 import { InputAdornment } from "@mui/material";
 import Email from "@mui/icons-material/Email";
@@ -7,19 +7,86 @@ import Person from "@mui/icons-material/Person";
 import { useForm } from "react-hook-form";
 import PasswordInput from "@components/FieldPassword";
 import { signUp } from "@services/firebase/signUp";
-
+import { useMutation } from "react-query";
+import ServiceSignup from "@src/services/signup/signup.service";
+type IMutationAdm = {
+  nome: string;
+  email: string;
+  uuid_firebase: string;
+};
 const SignUp = () => {
+  const serviceSignup = new ServiceSignup();
+  const navigate = useNavigate();
   const { register, handleSubmit, watch } = useForm<TypeForm>({
     defaultValues: {
+      name: "",
       password: "",
       passwordRepeat: "",
     },
   });
 
-  const onSubmit = async (data) => {
-    const user = await signUp(data.email, data.password);
+  //Mutation para chamar o Me
+  const mutationMe = useMutation<
+    {
+      email: string;
+      uuid_firebase: string;
+    },
+    Error,
+    {
+      email: string;
+      uuid_firebase: string;
+    }
+  >({
+    mutationKey: "admin_me",
+    mutationFn: async (data) =>
+      await serviceSignup.me(data.email, data.uuid_firebase),
+    onSuccess: async (response) => {
+      console.log(response);
+    },
+  });
 
-    debugger;
+  //Mutation para criar admin no banco
+  const mutationCreate = useMutation<
+    IMutationAdm,
+    Error,
+    {
+      nome: string;
+      email: string;
+      uuid_firebase: string;
+    }
+  >({
+    mutationKey: "admin_register",
+    mutationFn: async (data) =>
+      await serviceSignup.create({
+        email: data.email,
+        nome: data.nome,
+        uuid_firebase: data.uuid_firebase,
+      }),
+  });
+
+  //OnSubmit
+  const onSubmit = async (obj) => {
+    const { email, password, name } = obj;
+    //Cria conta do admin no firebase
+    const { user } = await signUp(email, password);
+    //Cadastra no banco admin
+    await mutationCreate
+      .mutateAsync({
+        email: email,
+        nome: name,
+        uuid_firebase: user.uid,
+      })
+      .then(async (response) => {
+        await mutationMe.mutateAsync({
+          email: response.email,
+          uuid_firebase: response.uuid_firebase,
+        });
+      })
+      .then((result) => {
+        console.log(result);
+        //Tudo certo
+        navigate("/dashboard");
+      });
   };
 
   return (

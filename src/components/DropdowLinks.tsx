@@ -3,7 +3,7 @@ import SidebarLinkGroup from "./SidebarLinkGroup";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { TMenu } from "../data/menu";
+import { TMenu } from "../menu/menu";
 
 const DropdowLinks = ({ title, childrens, icon }: TMenu) => {
   const { pathname } = useLocation();

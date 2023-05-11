@@ -63,7 +63,7 @@ const routes = createBrowserRouter([
     ],
   },
   {
-    path: "/auth",
+    path: "auth",
     Component: () => <ComponentAuth />,
     children: [
       {
