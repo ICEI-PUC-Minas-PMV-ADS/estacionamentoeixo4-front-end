@@ -1,8 +1,8 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./config";
 
-const signUp = (email, senha) => {
-  createUserWithEmailAndPassword(auth, email, senha)
+export const signUp = (email, senha) => {
+  return createUserWithEmailAndPassword(auth, email, senha)
     .then((userCredential) => {
       const user = userCredential.user
       console.log(`Conta criada com sucesso no Firebase! Usuário: ${JSON.stringify(user)}`);
@@ -10,9 +10,9 @@ const signUp = (email, senha) => {
     })
     .catch((error) => {
       if (error.message.includes("email-already-in-use")) {
-        Alert.alert("E-mail já cadastrado.");
+        alert("E-mail já cadastrado.");
       } else {
-        Alert.alert("Erro inesperado, tente novamente mais tarde.");
+        alert("Erro inesperado, tente novamente mais tarde.");
       }
 
       throw new Error("firebase.create.account.error: ", error);

@@ -1,11 +1,10 @@
-import DefaultLayout from "../layout/DefaultLayout";
 import Breadcrumb from "../components/Breadcrumb";
 import CoverOne from "../images/cover/cover-01.png";
 import userSix from "../images/user/user-06.png";
 
 const Profile = () => {
   return (
-    <DefaultLayout>
+    <div className="w-full h-full">
       <Breadcrumb pageName="Profile" />
 
       <div className="overflow-hidden bg-white border rounded-sm border-stroke shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -280,7 +279,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </div>
   );
 };
 
