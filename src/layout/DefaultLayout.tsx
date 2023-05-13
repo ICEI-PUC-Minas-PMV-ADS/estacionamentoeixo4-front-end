@@ -18,7 +18,7 @@ const DefaultLayout = () => {
 
   if (pathname === "/auth/signin") {
     return (
-      <main className="flex h-screen w-full flex-col overflow-hidden">
+      <main className="flex flex-col w-full h-screen overflow-hidden">
         <div className="mx-auto max-w-screen-2xl">
           <Outlet />
         </div>
@@ -28,7 +28,7 @@ const DefaultLayout = () => {
 
   if (pathname === "/auth/signup") {
     return (
-      <main className="flex h-screen w-full flex-col overflow-hidden">
+      <main className="flex flex-col w-full h-screen overflow-hidden">
         <div className="mx-auto max-w-screen-2xl ">
           <Outlet />
         </div>
@@ -38,7 +38,7 @@ const DefaultLayout = () => {
 
   if (pathname === "/") {
     return (
-      <main className="flex h-screen w-full flex-col overflow-x-hidden">
+      <main className="flex flex-col w-full h-screen overflow-x-hidden">
         <Sidebar
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
@@ -71,14 +71,14 @@ const DefaultLayout = () => {
         )}
         {/* <!-- ===== Sidebar End ===== --> */}
         {/* <!-- ===== Content Area Start ===== --> */}
-        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+        <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
           {/* <!-- ===== Header Start ===== --> */}
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}
           <main>
-            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            <div className="p-4 mx-auto max-w-screen-2xl md:p-6 2xl:p-10">
               <Outlet />
             </div>
           </main>

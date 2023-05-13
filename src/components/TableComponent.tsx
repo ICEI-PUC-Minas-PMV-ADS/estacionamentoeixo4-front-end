@@ -255,6 +255,7 @@ export default function EnhancedTable({
     event: React.MouseEvent<HTMLTableRowElement>,
     obj: object
   ) => {
+    debugger;
     const selectedIndex = selected.indexOf(obj);
     let newSelected: readonly string[] = [];
 
@@ -290,6 +291,7 @@ export default function EnhancedTable({
   };
 
   const isSelected = (name: string) => {
+    debugger;
     return selected.indexOf(name) !== -1;
   };
 
