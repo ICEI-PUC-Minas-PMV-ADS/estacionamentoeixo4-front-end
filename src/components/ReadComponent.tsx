@@ -38,12 +38,14 @@ export default abstract class ReadComponent extends Component<Tprops, TState> {
     throw new Error("Implementar orderByTable");
   }
   private createData(
+    id: number,
     preco: number,
     vagas_preferenciais: number,
     vagas_gerais: number,
     razao_social: string
   ): Data {
     return {
+      id,
       preco,
       vagas_preferenciais,
       vagas_gerais,
@@ -57,8 +59,12 @@ export default abstract class ReadComponent extends Component<Tprops, TState> {
     const orderBy = await this.orderByTable();
     //Fazer a requisição para o backend recupera os dados
     const rows = [
-      this.createData(1.2, 305, 3.7, "Cabeção"),
-      this.createData(23.4, 452, 25.0, "JCRastreamentos"),
+      this.createData(1, 1.2, 305, 3.7, "Cabeção"),
+      this.createData(2, 23.4, 452, 25.0, "JCRastreamentos"),
+      this.createData(3, 23.4, 452, 25.0, "JCRastreamentos"),
+      this.createData(4, 23.4, 452, 25.0, "JCRastreamentos"),
+      this.createData(5, 23.4, 452, 25.0, "JCRastreamentos"),
+      this.createData(6, 23.4, 452, 25.0, "JCRastreamentos"),
     ];
 
     this.setState((state) => ({

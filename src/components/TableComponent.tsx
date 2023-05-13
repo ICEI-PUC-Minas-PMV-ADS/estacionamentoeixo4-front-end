@@ -108,8 +108,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     setColuns(colunms);
   }, [colunms]);
   return (
-    <TableHead>
-      <TableRow>
+    <TableHead className="dark:bg-bodydark2">
+      <TableRow className="dark:bg-bodydark2">
         <TableCell padding="checkbox">
           <Checkbox
             color="primary"
@@ -123,6 +123,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         </TableCell>
         {columnsData?.map((headCell) => (
           <TableCell
+            className="dark:bg-bodydark2"
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
@@ -222,7 +223,7 @@ export default function EnhancedTable({
   const [columnsData, setColuns] = React.useState<HeadCell[]>([]);
   const [rowsFetch, setRows] = React.useState<Data[]>([]);
   const [orderByFetch, setOrderBy] = React.useState<keyof Data>("");
-  const [selected, setSelected] = React.useState<readonly string[]>([]);
+  const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -243,7 +244,7 @@ export default function EnhancedTable({
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelected = rowsFetch.map((n) => {
-        return n.id;
+        return n.id as number;
       });
       setSelected(newSelected);
       return;
@@ -253,16 +254,16 @@ export default function EnhancedTable({
 
   const handleClick = (
     event: React.MouseEvent<HTMLTableRowElement>,
-    obj: object
+    n: number
   ) => {
-    debugger;
-    const selectedIndex = selected.indexOf(obj);
+    const selectedIndex = selected.indexOf(n);
     let newSelected: readonly string[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      debugger;
+      newSelected = newSelected.concat(selected, n);
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
+      newSelected = newSelected.concat(selected?.slice(1));
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
@@ -290,9 +291,8 @@ export default function EnhancedTable({
     setDense(event.target.checked);
   };
 
-  const isSelected = (name: string) => {
-    debugger;
-    return selected.indexOf(name) !== -1;
+  const isSelected = (n: number) => {
+    return selected.indexOf(n) !== -1;
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -312,8 +312,9 @@ export default function EnhancedTable({
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} title={title} />
-        <TableContainer>
+        <TableContainer className="dark:bg-bodydark2">
           <Table
+            className="dark:bg-bodydark2"
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
@@ -329,13 +330,13 @@ export default function EnhancedTable({
             />
             <TableBody>
               {visibleRows.map((row, index) => {
-                const isItemSelected = isSelected(`${index}`);
+                const isItemSelected = isSelected(Number(row.id));
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row)}
+                    onClick={(event) => handleClick(event, Number(row.id))}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
@@ -353,8 +354,10 @@ export default function EnhancedTable({
                       />
                     </TableCell>
 
-                    {columnsData.map((item) => (
-                      <TableCell align="right">{row[item.id]}</TableCell>
+                    {columnsData.map((item, index) => (
+                      <TableCell key={index} align="right">
+                        {row[item.id]}
+                      </TableCell>
                     ))}
                   </TableRow>
                 );
