@@ -4,11 +4,14 @@ import Breadcrumb from "./Breadcrumb";
 type Tprops = {
   title: string;
 };
-export default class CrudComponent extends React.Component<Tprops, any> {
+export default class CrudComponent extends React.Component<
+  Tprops,
+  { [key: string]: string | number }
+> {
   constructor(props: Tprops) {
     super(props);
   }
-  render(): JSX.Element {
+  override render(): JSX.Element {
     return (
       <div className="flex flex-col items-center justify-center w-full h-full">
         <div className="w-full">

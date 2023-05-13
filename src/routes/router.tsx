@@ -2,8 +2,13 @@ import DefaultLayout from "@src/layout/DefaultLayout";
 import SignIn from "@src/pages/Authentication/SignIn";
 import SignUp from "@src/pages/Authentication/SignUp";
 import ComponentAuth from "@src/pages/Authentication/componentes/ComponentAuth";
+import DashboardPage from "@src/pages/DashboardPage";
 import Home from "@src/pages/Home";
 import Tables from "@src/pages/Tables";
+import FormAdm from "@src/pages/administrador/Form.component";
+import ReadAdm from "@src/pages/administrador/Read.component";
+import FormEstacionamento from "@src/pages/estacionamentos/Form.component";
+import ReadEstacionamento from "@src/pages/estacionamentos/Read.component";
 import FormUsers from "@src/pages/users/Form.component";
 import ReadUser from "@src/pages/users/Read.component";
 import { createBrowserRouter } from "react-router-dom";
@@ -22,15 +27,14 @@ const routes = createBrowserRouter([
       },
       {
         path: "dashboard",
+        Component: () => <DashboardPage />,
         children: [
           {
             path: "users",
-
             children: [
               {
-                index: true,
                 path: "read",
-                Component: () => <ReadUser />,
+                Component: () => <ReadUser title="Usuários" />,
               },
               {
                 path: "create",
@@ -43,22 +47,31 @@ const routes = createBrowserRouter([
 
             children: [
               {
-                index: true,
                 path: "read",
-                Component: () => <ReadUser />,
+                Component: () => <ReadEstacionamento title="Estacionamentos" />,
               },
               {
                 path: "create",
-                Component: () => <FormUsers title="Criar estacionamento" />,
+                Component: () => (
+                  <FormEstacionamento title="Criar estacionamento" />
+                ),
+              },
+            ],
+          },
+          {
+            path: "administrador",
+            children: [
+              {
+                path: "read",
+                Component: () => <ReadAdm title="Administradores" />,
+              },
+              {
+                path: "create",
+                Component: () => <FormAdm title="Criar administrador" />,
               },
             ],
           },
         ],
-      },
-
-      {
-        path: "/tabelas",
-        Component: () => <Tables />,
       },
     ],
   },

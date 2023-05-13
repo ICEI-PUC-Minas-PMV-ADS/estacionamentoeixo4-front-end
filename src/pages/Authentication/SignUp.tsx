@@ -8,15 +8,19 @@ import { useForm } from "react-hook-form";
 import PasswordInput from "@components/FieldPassword";
 import { signUp } from "@services/firebase/signUp";
 import { useMutation } from "react-query";
-import ServiceSignup from "@src/services/signup/signup.service";
-type IMutationAdm = {
+import AxiosRequest from "@src/services/axiosRequests/axiosRequests";
+type TMutationAdm = {
   nome: string;
   email: string;
   uuid_firebase: string;
 };
 const SignUp = () => {
-  const serviceSignup = new ServiceSignup();
+  const serviceSignup = new AxiosRequest();
   const navigate = useNavigate();
+
+  // const queryClient = useQueryClient();
+
+  //Form  Singin
   const { register, handleSubmit, watch } = useForm<TypeForm>({
     defaultValues: {
       name: "",
@@ -37,55 +41,67 @@ const SignUp = () => {
       uuid_firebase: string;
     }
   >({
-    mutationKey: "admin_me",
-    mutationFn: async (data) =>
-      await serviceSignup.me(data.email, data.uuid_firebase),
+    mutationKey: ["admin_me"],
+    mutationFn: async (result) =>
+      await serviceSignup.post({ url: "/auth/me", data: result }),
     onSuccess: async (response) => {
       console.log(response);
     },
   });
 
   //Mutation para criar admin no banco
-  const mutationCreate = useMutation<
-    IMutationAdm,
-    Error,
-    {
-      nome: string;
-      email: string;
-      uuid_firebase: string;
-    }
-  >({
-    mutationKey: "admin_register",
-    mutationFn: async (data) =>
-      await serviceSignup.create({
-        email: data.email,
-        nome: data.nome,
-        uuid_firebase: data.uuid_firebase,
+  const mutationCreate = useMutation<TMutationAdm, Error, TMutationAdm>({
+    mutationKey: ["admin_register"],
+    mutationFn: async (result) =>
+      await serviceSignup.post({
+        url: "/manager",
+        data: result,
       }),
   });
 
   //OnSubmit
   const onSubmit = async (obj) => {
-    const { email, password, name } = obj;
-    //Cria conta do admin no firebase
-    const { user } = await signUp(email, password);
-    //Cadastra no banco admin
-    await mutationCreate
-      .mutateAsync({
-        email: email,
-        nome: name,
-        uuid_firebase: user.uid,
-      })
-      .then(async (response) => {
-        await mutationMe.mutateAsync({
+    const { name, email, password, passwordRepeat } = obj;
+    if (password.match(passwordRepeat)) {
+      // message
+    }
+    const CallMe = (response) => {
+      return mutationMe
+        .mutateAsync({
           email: response.email,
           uuid_firebase: response.uuid_firebase,
-        });
+        })
+        .catch((error) => error);
+    };
+
+    //Cria conta do admin no firebase
+    await signUp(email, password)
+      .then(async (response) => {
+        //Cadastra no banco admin
+        await mutationCreate
+          .mutateAsync({
+            email: response.user.email as string,
+            nome: name,
+            uuid_firebase: response.user.uid,
+          })
+          .then(async () => {
+            navigate("/auth/signin");
+          })
+          .catch(async () => {
+            //tenta segunda vez se caso o corra erro
+            await mutationCreate
+              .mutateAsync({
+                email: response.user.email as string,
+                nome: name,
+                uuid_firebase: response.user.uid,
+              })
+              .then(async () => {
+                navigate("/auth/signin");
+              });
+          });
       })
-      .then((result) => {
-        console.log(result);
-        //Tudo certo
-        navigate("/dashboard");
+      .catch(() => {
+        // tratar erro na tela firebase
       });
   };
 

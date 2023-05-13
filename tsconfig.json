@@ -4,13 +4,15 @@
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext", "WebWorker"],
     "module": "ESNext",
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "noImplicitAny": false,
     "noImplicitUseStrict": false,
+    "useDefineForClassFields": false,
+    "noImplicitOverride": false,
     "allowJs": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -33,6 +35,7 @@
       "@hooks/*": ["./src/hooks/*"]
     }
   },
+
   "include": ["src", "index.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

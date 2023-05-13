@@ -1,7 +1,5 @@
-import { Component } from "react";
+import ReadComponent from "../../components/ReadComponent";
 
-export default class ReadUser extends Component {
-  render() {
-    return <div>Read.component</div>;
-  }
+export default class ReadUser extends ReadComponent {
+    
 }

@@ -1,3 +1,5 @@
+import Estacionamento from "./Estacionamento";
+
 export default class Administrador {
   public readonly id?: number;
   public readonly nome: string;
@@ -5,6 +7,8 @@ export default class Administrador {
   public readonly email: string;
 
   public readonly uuid_firebase: string;
+
+  public readonly estacionamentos?: Estacionamento[];
 
   constructor(nome: string, email: string, uuid_firebase: string) {
     this.nome = nome;

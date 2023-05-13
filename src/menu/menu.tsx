@@ -38,20 +38,20 @@ export default [
   },
   {
     title: "Administradores",
+    link: "",
+    icon: <ManageAccounts />,
     childrens: [
       {
         title: "Visualizar",
-        link: "/read",
+        link: "/dashboard/administrador/read",
         icon: <TableChartOutlined />,
       },
       {
         title: "Cadastrar",
-        link: "/create",
+        link: "/dashboard/administrador/create",
         icon: <AddBoxOutlined />,
       },
     ],
-    link: "",
-    icon: <ManageAccounts />,
   },
   {
     title: "Estacionamentos",
