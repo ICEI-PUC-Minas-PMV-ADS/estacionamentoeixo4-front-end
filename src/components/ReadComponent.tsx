@@ -10,6 +10,7 @@ type TState = {
   columns: HeadCell[];
   rows: Data[];
   orderBy: string;
+  service: string;
 };
 export default abstract class ReadComponent extends Component<Tprops, TState> {
   columns: HeadCell[] = [];
@@ -18,6 +19,7 @@ export default abstract class ReadComponent extends Component<Tprops, TState> {
     columns: [],
     rows: [],
     orderBy: "",
+    service: "",
   };
 
   //Monta o title da tabela
@@ -37,53 +39,34 @@ export default abstract class ReadComponent extends Component<Tprops, TState> {
   protected async orderByTable(): Promise<string> {
     throw new Error("Implementar orderByTable");
   }
-  private createData(
-    id: number,
-    preco: number,
-    vagas_preferenciais: number,
-    vagas_gerais: number,
-    razao_social: string
-  ): Data {
-    return {
-      id,
-      preco,
-      vagas_preferenciais,
-      vagas_gerais,
-      razao_social,
-    };
-  }
+
   async componentDidMount() {
     //Recupera as propererties  da tabela
     const colunas = await this.colunsTable();
     const title = await this.titleTable();
     const orderBy = await this.orderByTable();
-    //Fazer a requisição para o backend recupera os dados
-    const rows = [
-      this.createData(1, 1.2, 305, 3.7, "Cabeção"),
-      this.createData(2, 23.4, 452, 25.0, "JCRastreamentos"),
-      this.createData(3, 23.4, 452, 25.0, "JCRastreamentos"),
-      this.createData(4, 23.4, 452, 25.0, "JCRastreamentos"),
-      this.createData(5, 23.4, 452, 25.0, "JCRastreamentos"),
-      this.createData(6, 23.4, 452, 25.0, "JCRastreamentos"),
-    ];
 
+    //Fazer a requisição para o backend para  recupera os dados
+    const service = await this.nameServiceTable();
     this.setState((state) => ({
       ...state,
       columns: colunas,
       title: title,
-      rows: rows,
+      service: service,
       orderBy: orderBy,
     }));
   }
 
-  render(): JSX.Element {
+  render() {
     return (
-      <EnhancedTable
-        orderBy={this.state.orderBy}
-        rows={this.state.rows}
-        title={this.state.title}
-        colunms={this.state?.columns}
-      />
+      this.state.service && (
+        <EnhancedTable
+          orderBy={this.state.orderBy}
+          service={this.state.service}
+          title={this.state.title}
+          colunms={this.state?.columns}
+        />
+      )
     );
   }
 }

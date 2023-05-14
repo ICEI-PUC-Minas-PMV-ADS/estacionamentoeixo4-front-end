@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import CoockiesService from "@src/services/auth/CoockieService";
 import { Axios } from "axios";
 
@@ -9,7 +8,6 @@ export const interceptor = (axios: Axios) => {
     async (config) => {
       // eslint-disable-next-line no-debugger
       let token = cookiesService.getToken();
-      debugger;
       if (config["url"] === "/auth/refresh") {
         token = cookiesService.getRefreshToken();
       }
@@ -20,7 +18,6 @@ export const interceptor = (axios: Axios) => {
       return config;
     },
     (error) => {
-      debugger;
       console.error("Interceptor error response" + error);
       throw new Error(error);
     }
@@ -45,8 +42,6 @@ export const interceptor = (axios: Axios) => {
       return response;
     },
     async (error) => {
-      // eslint-disable-next-line no-debugger
-      debugger;
       const access_token = cookiesService.getToken();
       if (error?.response.status === 403 && access_token) {
         const response = await refreshToken(error);

@@ -12,7 +12,7 @@ export default class ReadEstacionamento extends ReadComponent {
       {
         id: "preco",
         numeric: true,
-        disablePadding: true,
+        disablePadding: false,
         label: "Preco",
       },
       {

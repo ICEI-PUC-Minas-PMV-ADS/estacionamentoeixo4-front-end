@@ -1,5 +1,5 @@
 import * as React from "react";
-import { alpha } from "@mui/material/styles";
+// import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -20,6 +20,9 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import { useQuery, useQueryClient } from "react-query";
+import AxiosRequest from "@src/services/axiosRequests/axiosRequests";
+import { set } from "react-hook-form";
 
 export interface Data {
   [key: string]: string | number;
@@ -107,13 +110,18 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   React.useEffect(() => {
     setColuns(colunms);
   }, [colunms]);
+
   return (
-    <TableHead className="dark:bg-bodydark2">
-      <TableRow className="dark:bg-bodydark2">
-        <TableCell padding="checkbox">
+    <TableHead className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4">
+      <TableRow className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4">
+        <TableCell
+          padding="checkbox"
+          className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+        >
           <Checkbox
-            color="primary"
+            color="info"
             indeterminate={numSelected > 0 && numSelected < rowCount}
+            className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
@@ -123,20 +131,25 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         </TableCell>
         {columnsData?.map((headCell) => (
           <TableCell
-            className="dark:bg-bodydark2"
+            className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
+              className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
+                <Box
+                  component="span"
+                  sx={visuallyHidden}
+                  className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+                >
                   {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </Box>
               ) : null}
@@ -158,29 +171,31 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 
   return (
     <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        }),
-      }}
+      className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+      // sx={{
+      //   pl: { sm: 2 },
+      //   pr: { xs: 1, sm: 1 },
+      //   ...(numSelected > 0 && {
+      //     bgcolor: (theme) =>
+      //       alpha(
+      //         theme.palette.primary.main,
+      //         theme.palette.action.activatedOpacity
+      //       ),
+      //   }),
+      // }}
     >
       {numSelected > 0 ? (
         <Typography
           sx={{ flex: "1 1 100%" }}
-          color="inherit"
           variant="subtitle1"
           component="div"
+          color={"ButtonFace"}
         >
           {numSelected} selected
         </Typography>
       ) : (
         <Typography
+          className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
           sx={{ flex: "1 1 100%" }}
           variant="h6"
           id="tableTitle"
@@ -190,7 +205,10 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Typography>
       )}
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip
+          title="Delete"
+          className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+        >
           <IconButton>
             <DeleteIcon />
           </IconButton>
@@ -209,14 +227,14 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 export interface IPorpsTable {
   title: string;
   colunms: HeadCell[];
-  rows: Data[];
+  service: string;
   orderBy: string;
 }
 
 export default function EnhancedTable({
   title,
   colunms,
-  rows,
+  service,
   orderBy,
 }: IPorpsTable) {
   const [order, setOrder] = React.useState<Order>("asc");
@@ -227,11 +245,27 @@ export default function EnhancedTable({
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const axios = new AxiosRequest();
+
   React.useEffect(() => {
     setColuns(colunms);
-    setRows(rows);
     setOrderBy(orderBy);
-  }, [colunms, rows, orderBy]);
+  }, [colunms, orderBy, service]);
+
+  //Faz a requisição
+  useQuery<any, Error>({
+    queryKey: [service],
+    queryFn: async () => await axios.get({ url: service }),
+    onSuccess: (response) => {
+      setRows(response);
+    },
+    onError: (err: Error) => {
+      setRows([]);
+      throw new Error("Aconteceu algum erro inesperado" + err);
+    },
+  });
+
+  //Mutations
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof Data
@@ -257,10 +291,9 @@ export default function EnhancedTable({
     n: number
   ) => {
     const selectedIndex = selected.indexOf(n);
-    let newSelected: readonly string[] = [];
+    let newSelected: readonly number[] = [];
 
     if (selectedIndex === -1) {
-      debugger;
       newSelected = newSelected.concat(selected, n);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected?.slice(1));
@@ -309,12 +342,18 @@ export default function EnhancedTable({
   );
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
+    <Box
+      sx={{ width: "100%" }}
+      className="dark:bg-boxdark-2 dark:text-white bg-gray text-meta-4 px-2"
+    >
+      <Paper
+        sx={{ width: "100%", mb: 2 }}
+        className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+      >
         <EnhancedTableToolbar numSelected={selected.length} title={title} />
-        <TableContainer className="dark:bg-bodydark2">
+        <TableContainer className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4">
           <Table
-            className="dark:bg-bodydark2"
+            className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
@@ -328,13 +367,14 @@ export default function EnhancedTable({
               onRequestSort={handleRequestSort}
               rowCount={rowsFetch.length}
             />
-            <TableBody>
+            <TableBody className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4">
               {visibleRows.map((row, index) => {
                 const isItemSelected = isSelected(Number(row.id));
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
+                    className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
                     hover
                     onClick={(event) => handleClick(event, Number(row.id))}
                     role="checkbox"
@@ -344,9 +384,13 @@ export default function EnhancedTable({
                     selected={isItemSelected}
                     sx={{ cursor: "pointer" }}
                   >
-                    <TableCell padding="checkbox">
+                    <TableCell
+                      padding="checkbox"
+                      className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+                    >
                       <Checkbox
-                        color="primary"
+                        className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+                        color="info"
                         checked={isItemSelected}
                         inputProps={{
                           "aria-labelledby": labelId,
@@ -355,7 +399,11 @@ export default function EnhancedTable({
                     </TableCell>
 
                     {columnsData.map((item, index) => (
-                      <TableCell key={index} align="right">
+                      <TableCell
+                        key={index}
+                        align="right"
+                        className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+                      >
                         {row[item.id]}
                       </TableCell>
                     ))}
@@ -364,17 +412,22 @@ export default function EnhancedTable({
               })}
               {emptyRows > 0 && (
                 <TableRow
+                  className="dark:bg-boxdark-2 dark:text-white bg-body text-body  "
                   style={{
                     height: (dense ? 33 : 53) * emptyRows,
                   }}
                 >
-                  <TableCell colSpan={6} />
+                  <TableCell
+                    colSpan={6}
+                    className="dark:bg-boxdark-2 dark:text-white bg-white text-body"
+                  />
                 </TableRow>
               )}
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
+          className="dark:bg-boxdark-2 dark:text-white bg-white text-body"
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={rowsFetch.length}
@@ -385,7 +438,15 @@ export default function EnhancedTable({
         />
       </Paper>
       <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
+        className="dark:bg-boxdark-2 dark:text-white bg-gray text-body px-3"
+        control={
+          <Switch
+            color="default"
+            checked={dense}
+            onChange={handleChangeDense}
+            className="dark:bg-boxdark-2 dark:text-white bg-gray text-body"
+          />
+        }
         label="Dense padding"
       />
     </Box>
