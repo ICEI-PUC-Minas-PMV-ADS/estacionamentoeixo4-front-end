@@ -9,12 +9,17 @@ const NavHome = () => {
         </a>
       </li>
       <li>
-        <NavLink className="text-bodydark2"   to="/contacts">
+        <NavLink className="text-bodydark2" to="/contacts">
           Fale conosco
         </NavLink>
       </li>
       <li>
-        <a href="/"></a>
+        <NavLink
+          className="text-bodydark2 px-3 py-2  border rounded-md"
+          to="/auth"
+        >
+          Login
+        </NavLink>
       </li>
     </>
   );

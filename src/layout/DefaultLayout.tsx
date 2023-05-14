@@ -1,14 +1,20 @@
 import Sidebar from "@components/Sidebar";
 import Header from "@components/Header";
-import { useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
-import menu, { menu_inital } from "@src/data/menu";
+import { useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import menu, { menu_inital } from "@src/menu/menu";
+import { useAuthGuard } from "@src/routes/guardsHooks/Auth.guard";
 
 const DefaultLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const location = useLocation();
+  const navigate = useNavigate();
   const { pathname } = location;
+  const [request, setRequest] = useAuthGuard(pathname);
+  //Chama o hoocks guard
+  useEffect(() => {
+    setRequest(pathname);
+  }, [pathname, setRequest, request, navigate]);
 
   if (pathname === "/auth/signin") {
     return (

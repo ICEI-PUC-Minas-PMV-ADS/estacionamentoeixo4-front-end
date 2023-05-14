@@ -1,12 +1,18 @@
 import { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import DropdowLinks from "./DropdowLinks";
 import LinkMenu from "./LinkMenu";
-
+import Logo from "@images/logo/logo.png";
+import CoockiesService from "@src/services/auth/CoockieService";
+import { Dashboard } from "@mui/icons-material";
+import { TMenu } from "@src/menu/menu";
 const Sidebar = ({ sidebarOpen, setSidebarOpen, aria_control, menu }) => {
+  const [menuData, setMenu] = useState<TMenu>(menu);
+  const { pathname } = useLocation();
   const trigger = useRef(null);
   const sidebar = useRef(null);
-
+  const coockies = new CoockiesService();
+  const user = coockies.getUser();
   const storedSidebarExpanded = localStorage.getItem(
     `${aria_control}-expanded`
   );
@@ -14,6 +20,20 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, aria_control, menu }) => {
     storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
   );
 
+  useEffect(() => {
+    if (
+      user &&
+      pathname === "/" &&
+      !menu.find((item) => item.title === "Dashboard")
+    ) {
+      menu.unshift({
+        title: "Dashboard",
+        childrens: null,
+        link: "/dashboard",
+        icon: <Dashboard />,
+      });
+    }
+  }, [user, menu, pathname]);
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
@@ -50,7 +70,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, aria_control, menu }) => {
           to="/"
           className="flex items-center justify-center w-full pr-4 "
         >
-          <img src="./logo.png" className="w-22" alt="logo why parck" />
+          <img src={Logo} className="w-22" alt="logo why parck" />
         </NavLink>
 
         <button

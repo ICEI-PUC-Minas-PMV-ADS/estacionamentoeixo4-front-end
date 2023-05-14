@@ -1,5 +1,5 @@
 import About from "./About";
-import Logo from "../images/logo/logo.png";
+import Logo from "@images/logo/logo.png";
 const Home = () => {
   return (
     <div className="w-full h-full">

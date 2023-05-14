@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { TMenu } from "../data/menu";
+import { TMenu } from "../menu/menu";
 
 const LinkMenu = ({ title, link, icon }: TMenu) => {
   const { pathname } = useLocation();

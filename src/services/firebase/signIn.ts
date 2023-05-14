@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./config";
 
 export const signIn = (email, senha) => {
-  signInWithEmailAndPassword(auth, email, senha)
+  return signInWithEmailAndPassword(auth, email, senha)
     .then((userCredential) => {
       const user = userCredential.user;
       console.log(`Conta logada com sucesso no Firebase! Usuário: ${JSON.stringify(user)}`);

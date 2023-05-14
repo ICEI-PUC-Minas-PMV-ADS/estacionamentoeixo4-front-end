@@ -1,26 +1,67 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Field from "@components/Field";
 import { useForm } from "react-hook-form";
 import { InputAdornment } from "@mui/material";
 import { Email } from "@mui/icons-material";
 import PasswordInput from "@components/FieldPassword";
 import { signIn } from "@services/firebase/signIn";
+import { useMutation, useQueryClient } from "react-query";
+import AxiosRequest from "@src/services/axiosRequests/axiosRequests";
+
+export interface IMeMutate {
+  email: string;
+  uuid_firebase: string;
+}
 const SignIn = () => {
+  const serviceSignin = new AxiosRequest();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  //Form  Singin
   const { register, handleSubmit, getValues } = useForm<{
     [key: string]: string | number;
   }>({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
-      passwordRepeat: "",
     },
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  //Mutation para chamar o Me
+  const mutationMe = useMutation<IMeMutate, Error, IMeMutate>({
+    mutationKey: ["me_user"],
+    mutationFn: async (result) =>
+      await serviceSignin.post({ url: "/auth/me", data: result }),
+  });
 
-    signIn(data.email, data.password);
+  const onSubmit = async (data) => {
+    signIn(data.email, data.password)
+      .then(async (res) => {
+        await mutationMe
+          .mutateAsync({
+            email: res.user.email as string,
+            uuid_firebase: res.user.uid,
+          })
+          .then(() => {
+            navigate("/dashboard");
+          })
+          .catch(async () => {
+            // Tentar fazer a chamanda mais uma vez
+            await mutationMe
+              .mutateAsync({
+                email: res.user.email as string,
+                uuid_firebase: res.user.uid,
+              })
+              .then(() => {
+                navigate("/dashboard");
+              })
+              .catch((err) => err);
+          });
+      })
+      .catch(() => {
+        // Tratar os erros na tela
+        debugger;
+      });
   };
 
   return (

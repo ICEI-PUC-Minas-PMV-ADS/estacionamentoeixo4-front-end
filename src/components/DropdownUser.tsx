@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import Logo from "@images/logo/logo.png";
+
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -52,7 +54,7 @@ const DropdownUser = () => {
           pathname !== "/auth/signup" &&
           pathname !== "/auth/signin" && (
             <span className="w-12 h-12 rounded-full">
-              <img src="./logo.png" alt="User" />
+              <img src={Logo} alt="User" />
             </span>
           )}
 

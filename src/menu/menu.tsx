@@ -24,12 +24,12 @@ export default [
     childrens: [
       {
         title: "Visualizar",
-        link: "/read",
+        link: "/dashboard/users/read",
         icon: <TableChartOutlined />,
       },
       {
         title: "Cadastrar",
-        link: "/create",
+        link: "/dashboard/users/create",
         icon: <AddBoxOutlined />,
       },
     ],
@@ -38,32 +38,32 @@ export default [
   },
   {
     title: "Administradores",
+    link: "",
+    icon: <ManageAccounts />,
     childrens: [
       {
         title: "Visualizar",
-        link: "/read",
+        link: "/dashboard/administrador/read",
         icon: <TableChartOutlined />,
       },
       {
         title: "Cadastrar",
-        link: "/create",
+        link: "/dashboard/administrador/create",
         icon: <AddBoxOutlined />,
       },
     ],
-    link: "",
-    icon: <ManageAccounts />,
   },
   {
     title: "Estacionamentos",
     childrens: [
       {
         title: "Visualizar",
-        link: "/read",
+        link: "/dashboard/estacionamento/read",
         icon: <TableChartOutlined />,
       },
       {
         title: "Cadastrar",
-        link: "/create",
+        link: "/dashboard/estacionamento/create",
         icon: <AddBoxOutlined />,
       },
     ],
