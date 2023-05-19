@@ -25,20 +25,26 @@ const routes = createBrowserRouter([
         path: "/",
         Component: Home,
       },
+
       {
         path: "dashboard",
         Component: () => <DashboardPage />,
         children: [
+          {},
           {
             path: "users",
             children: [
               {
                 path: "read",
-                Component: () => <ReadUser title="Usuários" />,
+                Component: () => <ReadUser />,
               },
               {
                 path: "create",
-                Component: () => <FormUsers title="Criar usuários" />,
+                Component: () => <FormUsers />,
+              },
+              {
+                path: "edit/:id",
+                Component: () => <FormUsers />,
               },
             ],
           },
@@ -48,13 +54,15 @@ const routes = createBrowserRouter([
             children: [
               {
                 path: "read",
-                Component: () => <ReadEstacionamento title="Estacionamentos" />,
+                Component: () => <ReadEstacionamento />,
               },
               {
                 path: "create",
-                Component: () => (
-                  <FormEstacionamento title="Criar estacionamento" />
-                ),
+                Component: () => <FormEstacionamento />,
+              },
+              {
+                path: "edit/:id",
+                Component: () => <FormEstacionamento />,
               },
             ],
           },
@@ -63,11 +71,32 @@ const routes = createBrowserRouter([
             children: [
               {
                 path: "read",
-                Component: () => <ReadAdm title="Administradores" />,
+                Component: () => <ReadAdm />,
               },
               {
                 path: "create",
-                Component: () => <FormAdm title="Criar administrador" />,
+                Component: () => <FormAdm />,
+              },
+              {
+                path: "edit/:id",
+                Component: () => <FormAdm />,
+              },
+            ],
+          },
+          {
+            path: "reserva",
+            children: [
+              {
+                path: "read",
+                Component: () => <ReadAdm />,
+              },
+              {
+                path: "create",
+                Component: () => <FormAdm />,
+              },
+              {
+                path: "edit/:id",
+                Component: () => <FormAdm />,
               },
             ],
           },

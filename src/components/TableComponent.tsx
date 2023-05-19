@@ -20,9 +20,9 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import AxiosRequest from "@src/services/axiosRequests/axiosRequests";
-import { set } from "react-hook-form";
+// import { set } from "react-hook-form";
 
 export interface Data {
   [key: string]: string | number;

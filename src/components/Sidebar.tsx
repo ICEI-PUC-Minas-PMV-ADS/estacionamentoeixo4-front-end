@@ -2,12 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import DropdowLinks from "./DropdowLinks";
 import LinkMenu from "./LinkMenu";
-import Logo from "@images/logo/logo.png";
+import Logo from "@images/logo/logo.svg";
 import CoockiesService from "@src/services/auth/CoockieService";
 import { Dashboard } from "@mui/icons-material";
-import { TMenu } from "@src/menu/menu";
 const Sidebar = ({ sidebarOpen, setSidebarOpen, aria_control, menu }) => {
-  const [menuData, setMenu] = useState<TMenu>(menu);
   const { pathname } = useLocation();
   const trigger = useRef(null);
   const sidebar = useRef(null);

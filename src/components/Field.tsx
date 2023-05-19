@@ -35,8 +35,9 @@ const Field = ({
       backgroundColor: "white",
       borderTopLeftRadius: "0.5rem",
       borderTopRightRadius: "0.5rem",
+      color: "#8A99AF",
     },
-
+    color: "#8A99AF",
     // input label when focused
     "& label.Mui-focused": {
       color: "#5E5CE5",

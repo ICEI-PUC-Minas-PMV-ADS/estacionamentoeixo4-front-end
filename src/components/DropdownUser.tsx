@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import Logo from "@images/logo/logo.png";
+import Logo from "@images/logo/logo.svg";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);

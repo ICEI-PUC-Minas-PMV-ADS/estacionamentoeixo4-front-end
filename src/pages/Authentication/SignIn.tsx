@@ -60,7 +60,7 @@ const SignIn = () => {
       })
       .catch(() => {
         // Tratar os erros na tela
-        debugger;
+        // debugger;
       });
   };
 
@@ -80,7 +80,7 @@ const SignIn = () => {
             }}
             variant="filled"
             label="Entre com email"
-            className="w-full py-3 pl-6 pr-10 border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none "
+            className="w-full rounded-lg border border-stroke py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none "
           />
         </div>
       </div>
@@ -91,7 +91,7 @@ const SignIn = () => {
             name={"password"}
             register={register}
             label="Entre com a senha"
-            className="w-full py-3 pl-6 pr-10 border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none "
+            className="w-full rounded-lg border border-stroke py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none "
           />
         </div>
       </div>
@@ -100,7 +100,7 @@ const SignIn = () => {
         <input
           type="submit"
           value="Entrar"
-          className="w-full p-3 text-white border rounded-lg cursor-pointer border-primary bg-primary hover:bg-opacity-90"
+          className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-3 text-white hover:bg-opacity-90"
         />
       </div>
       <div className="mt-6 text-center">
@@ -111,7 +111,6 @@ const SignIn = () => {
           </Link>
         </p>
       </div>
-      {getValues("password")}
     </form>
   );
 };

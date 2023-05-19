@@ -1,9 +1,5 @@
 import { Component } from "react";
 import EnhancedTable, { Data, HeadCell } from "./TableComponent";
-type Tprops = {
-  title: string;
-  columns: HeadCell[];
-};
 
 type TState = {
   title: string;
@@ -12,7 +8,10 @@ type TState = {
   orderBy: string;
   service: string;
 };
-export default abstract class ReadComponent extends Component<Tprops, TState> {
+export default abstract class ReadComponent extends Component<
+  React.Attributes,
+  TState
+> {
   columns: HeadCell[] = [];
   override state: TState = {
     title: "",
