@@ -75,17 +75,17 @@ export default class CrudComponent extends React.Component<
 
   render() {
     return (
-      <>
-        this.state.title && (
-        <Breadcrumb pageName={this.state.path} />
-        <FormUiComponent
-          fields={this.state.fields}
-          model={this.state.model}
-          service={this.state.service}
-          title={this.state.title}
-        />
-        )
-      </>
+      this.state.title && (
+        <>
+          <Breadcrumb pageName={this.state.path} />
+          <FormUiComponent
+            fields={this.state.fields}
+            model={this.state.model}
+            service={this.state.service}
+            title={this.state.title}
+          />
+        </>
+      )
     );
   }
 }

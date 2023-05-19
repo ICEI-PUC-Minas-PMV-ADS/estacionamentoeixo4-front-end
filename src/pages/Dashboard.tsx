@@ -49,7 +49,7 @@ const Dashboard = () => {
         </Grid>
 
         <div style={{ marginBottom: 10 }}>
-          <p1 style={{ marginBottom: 20 }}> CONTROLE DE NOVOS USUÁRIOS </p1>
+          <h1 style={{ marginBottom: 20 }}> CONTROLE DE NOVOS USUÁRIOS </h1>
         </div>
 
         <CustomChart />
