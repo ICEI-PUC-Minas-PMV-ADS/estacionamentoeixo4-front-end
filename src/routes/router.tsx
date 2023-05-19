@@ -11,6 +11,7 @@ import FormEstacionamento from "@src/pages/estacionamentos/Form.component";
 import ReadEstacionamento from "@src/pages/estacionamentos/Read.component";
 import FormUsers from "@src/pages/users/Form.component";
 import ReadUser from "@src/pages/users/Read.component";
+import Dashboard from "@src/pages/Dashboard";
 import { createBrowserRouter } from "react-router-dom";
 
 const routes = createBrowserRouter([
@@ -31,6 +32,15 @@ const routes = createBrowserRouter([
         Component: () => <DashboardPage />,
         children: [
           {},
+          {
+            path: "home",
+            children: [
+              {
+                path: "read",
+                Component: () => <Dashboard />,
+              },
+            ],
+          },
           {
             path: "users",
             children: [
