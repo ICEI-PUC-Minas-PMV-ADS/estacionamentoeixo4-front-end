@@ -6,7 +6,7 @@ const DashboardPage = () => {
   const { pathname } = location;
   //Chama a rota index do dashboard  caso não tenha
   useEffect(() => {
-    pathname === "/dashboard" && navigate("/dashboard/reservas/read");
+    pathname === "/dashboard" && navigate("/dashboard/home/read");
   });
 
   return <Outlet />;
