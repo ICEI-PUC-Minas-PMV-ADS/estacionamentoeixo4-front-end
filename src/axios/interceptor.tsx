@@ -29,12 +29,12 @@ export const interceptor = (axios: Axios) => {
       const url = response.request.responseURL;
       //Set user
       if (url.includes("/manager")) {
-        cookiesService.saveUser(response.data.user);
+        cookiesService.saveAdmin(response.data.user);
       }
       //Get token e token Refresh in route me e refresh
       if (url.includes("/auth/me") || url.includes("/auth/refresh")) {
         if (url.includes("/auth/me")) {
-          cookiesService.saveUser(response.data.user);
+          cookiesService.saveAdmin(response.data.user);
         }
         cookiesService.saveToken(response.data.accessToken);
         cookiesService.saveRefreshToken(response.data.refreshToken);
