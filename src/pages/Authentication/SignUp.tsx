@@ -54,7 +54,7 @@ const SignUp = () => {
     mutationKey: ["admin_register"],
     mutationFn: async (result) =>
       await serviceSignup.post({
-        url: "/manager",
+        url: "/ ",
         data: result,
       }),
   });

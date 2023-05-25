@@ -2,7 +2,7 @@ import { Container, Grid } from "@mui/material";
 import CardOne from "@src/components/CardOne";
 import CustomChart from "@src/components/CustomChart";
 import { useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // ICONS
 import PersonIcon from "@mui/icons-material/Person";

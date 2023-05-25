@@ -10,7 +10,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, aria_control, menu }) => {
   const trigger = useRef(null);
   const sidebar = useRef(null);
   const coockies = new CoockiesService();
-  const user = coockies.getUser();
+  const user = coockies.getAdmin();
   const storedSidebarExpanded = localStorage.getItem(
     `${aria_control}-expanded`
   );

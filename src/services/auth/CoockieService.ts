@@ -8,13 +8,13 @@ export default class CoockiesService {
   public readonly getRefreshToken = (): string => {
     return Cookies.get("RefreshToken") as string;
   };
-  public readonly getUser = () => {
+  public readonly getAdmin = () => {
     const obj = Cookies.get("user");
     const parser = obj ? JSON.parse(obj) : null;
     return parser;
   };
 
-  public readonly saveUser = (user) => {
+  public readonly saveAdmin = (user) => {
     Cookies.set("user", JSON.stringify(user));
   };
   public readonly saveToken = (token: string) => {
