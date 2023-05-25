@@ -7,8 +7,7 @@ import AdminService from "@src/services/auth/admin.service";
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const [admin] = AdminService();
-  debugger;
+  const [admin] = AdminService({});
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
@@ -48,9 +47,8 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Admin
+            {admin.nome}
           </span>
-          <span className="block text-xs">PUC</span>
         </span>
 
         {pathname !== "/" &&

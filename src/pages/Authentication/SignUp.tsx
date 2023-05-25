@@ -65,14 +65,6 @@ const SignUp = () => {
     if (password.match(passwordRepeat)) {
       // message
     }
-    const CallMe = (response) => {
-      return mutationMe
-        .mutateAsync({
-          email: response.email,
-          uuid_firebase: response.uuid_firebase,
-        })
-        .catch((error) => error);
-    };
 
     //Cria conta do admin no firebase
     await signUp(email, password)
@@ -86,6 +78,7 @@ const SignUp = () => {
           })
           .then(async () => {
             navigate("/auth/signin");
+            return;
           })
           .catch(async () => {
             //tenta segunda vez se caso o corra erro
