@@ -3,8 +3,8 @@ import AxiosRequest from "../axiosRequests/axiosRequests";
 import CoockiesService from "./CoockieService";
 import { useEffect, useState } from "react";
 
-const AdminService = () => {
-  const [admin, setAdmin] = useState();
+const AdminService = (data) => {
+  const [admin, setAdmin] = useState(data);
   const userRequest = new AxiosRequest();
   const userService = new CoockiesService();
   const user = userService.getAdmin();
