@@ -1,0 +1,18 @@
+version: '3.1'
+services:
+  frontend:
+    image: frontend
+    container_name: frontend
+    depends_on:
+      - api_producer
+    networks:
+      - backend-networks
+    environment:
+      - DEV = development
+      - VITE_PORT = 3002
+      - SERVER = http://api_producer:3000/api_producer
+    ports:
+      - 3002:3002
+networks:
+  backend-networks:
+    driver: bridge

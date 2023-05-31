@@ -104,7 +104,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, aria_control, menu }) => {
               MENU
             </h3>
 
-            <ul className="mb-6 flex flex-col gap-1.5">
+            <ul className="flex flex-col ">
               {menu.map((item, index) =>
                 /* <!-- Menu Item Dashboard --> */
                 item.childrens ? (

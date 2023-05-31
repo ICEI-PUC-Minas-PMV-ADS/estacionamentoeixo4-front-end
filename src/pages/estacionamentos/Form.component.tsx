@@ -49,7 +49,7 @@ export default class FormEstacionamento extends CrudComponent {
   }
 
   protected override async serviceForm(): Promise<string> {
-    const user = this.cookies.getUser();
+    const user = this.cookies.getAdmin();
     return `/estacionamento/${user.id}`;
   }
 

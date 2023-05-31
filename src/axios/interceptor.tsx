@@ -43,7 +43,10 @@ export const interceptor = (axios: Axios) => {
     },
     async (error) => {
       const access_token = cookiesService.getToken();
-      if (error?.response.status === 403 && access_token) {
+      if (
+        error?.response.status === 403 ||
+        (error?.response.status === 401 && access_token)
+      ) {
         const response = await refreshToken(error);
         return response;
       }
@@ -53,32 +56,25 @@ export const interceptor = (axios: Axios) => {
 
   async function refreshToken(error) {
     return new Promise((resolve, reject) => {
-      try {
-        const refresh_token = cookiesService.getRefreshToken();
-        const header = {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${refresh_token}`,
-        };
-        const parameters = {
-          method: "POST",
-          headers: header,
-        };
-        const body = {};
-        axios
-          .post("/auth/refresh", body, parameters)
-          .then(async (res) => {
-            cookiesService.saveToken(res.data.accessToken);
-            cookiesService.saveRefreshToken(res.data.refreshToken);
-            // Fazer algo caso seja feito o refresh token
-            return resolve(res);
-          })
-          .catch(() => {
-            // Fazer algo caso não seja feito o refresh token
-            return reject(error);
-          });
-      } catch (err) {
-        return reject(err);
-      }
+      const refresh_token = cookiesService.getRefreshToken();
+      const header = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${refresh_token}`,
+      };
+      const parameters = {
+        headers: header,
+      };
+      axios
+        .get("/auth/refresh", parameters)
+        .then(async (res) => {
+          cookiesService.saveToken(res.data.accessToken);
+          cookiesService.saveRefreshToken(res.data.refreshToken);
+          // Fazer algo caso seja feito o refresh token
+          return resolve(res);
+        })
+        .catch(() => {
+          return reject(error);
+        });
     });
   }
 };

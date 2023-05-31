@@ -44,6 +44,7 @@ const Field = ({
     },
     "& .MuiInput-underline:before": {
       color: "#5E5CE5",
+      backgroundColor: "white",
     },
     // focused color for input with variant='standard'
     "& .MuiInput-underline:after": {

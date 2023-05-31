@@ -11,7 +11,7 @@ import NavHome from "./NavHome";
 import ButtonHamburger from "./ButtonHamburger";
 
 const Header = (props) => {
-  const [searchForm] = useState(props.disableSearch || false);
+  const [_searchForm] = useState(props.disableSearch || false);
   const { pathname } = useLocation();
 
   const handllerMenuToogle = (e: React.MouseEvent<HTMLButtonElement>) => {

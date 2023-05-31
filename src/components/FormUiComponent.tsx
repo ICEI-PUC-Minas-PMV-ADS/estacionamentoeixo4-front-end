@@ -74,7 +74,7 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
 
   const axios = new AxiosRequest();
   const navigate = useNavigate();
-  const { register, watch, handleSubmit } = useForm<{
+  const { register, handleSubmit } = useForm<{
     [key: string]: any;
   }>({
     defaultValues: { ...modelState },
@@ -85,10 +85,10 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
   });
 
   const fnGetPathUrl = () => {
-    const [barra, path, lixo] = service.split("/");
+    const [_barra, path, _lixo] = service.split("/");
     return path;
   };
-
+  
   useEffect(() => {
     setModelState(model);
     setTitleState(title);
@@ -132,13 +132,13 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
   };
 
   return (
-    <div className="flex h-screen w-full items-center justify-center px-4">
+    <div className="flex items-center justify-center w-full h-screen px-4">
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
-        className="flex min-h-screen w-full flex-col items-center justify-start gap-y-4 rounded-md border border-bodydark2 p-12 px-20 "
+        className="flex flex-col items-center justify-start w-full min-h-screen p-12 px-20 border rounded-md gap-y-4 border-bodydark2 "
       >
-        <h1 className="font-satoshi text-2xl font-bold">
+        <h1 className="text-2xl font-bold font-satoshi">
           Cadastro do {titleState}
         </h1>
         {fieldsState.length !== 0 ? (
@@ -161,7 +161,7 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
                           register={register}
                           variant="filled"
                           label={child.placeholder}
-                          className="w-full rounded-lg border border-stroke py-3 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none "
+                          className="w-full py-3 pl-6 pr-10 text-black border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none "
                         />
                       )
                     );
@@ -209,7 +209,7 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
           type="submit"
           className="mt-8 w-[220px]  cursor-pointer rounded-lg border border-primary bg-primary p-3 text-white hover:bg-opacity-90"
         >
-          Enviar
+          Cadastrar
         </button>
       </Box>
     </div>

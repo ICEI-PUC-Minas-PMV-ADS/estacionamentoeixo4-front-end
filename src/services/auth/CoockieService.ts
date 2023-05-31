@@ -14,8 +14,23 @@ export default class CoockiesService {
     return parser;
   };
 
+  public readonly getAdminInfos = () => {
+    const obj = Cookies.get("userInfo");
+    const parser = obj ? JSON.parse(obj) : null;
+    return parser;
+  };
+  public readonly removeAll = () => {
+    ["user", "userInfo", "accessToken", "accessToken", "RefreshToken"].map(
+      (item) => {
+        this.removeCoockie(item);
+      }
+    );
+  };
   public readonly saveAdmin = (user) => {
     Cookies.set("user", JSON.stringify(user));
+  };
+  public readonly saveAdminInfo = (user) => {
+    Cookies.set("userInfo", JSON.stringify(user));
   };
   public readonly saveToken = (token: string) => {
     Cookies.set("accessToken", token);

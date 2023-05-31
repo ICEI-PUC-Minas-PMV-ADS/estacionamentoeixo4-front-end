@@ -18,7 +18,6 @@ const SignUp = () => {
   const serviceSignup = new AxiosRequest();
   const navigate = useNavigate();
 
-  // const queryClient = useQueryClient();
 
   //Form  Singin
   const { register, handleSubmit, watch } = useForm<TypeForm>({
@@ -26,26 +25,6 @@ const SignUp = () => {
       name: "",
       password: "",
       passwordRepeat: "",
-    },
-  });
-
-  //Mutation para chamar o Me
-  const mutationMe = useMutation<
-    {
-      email: string;
-      uuid_firebase: string;
-    },
-    Error,
-    {
-      email: string;
-      uuid_firebase: string;
-    }
-  >({
-    mutationKey: ["admin_me"],
-    mutationFn: async (result) =>
-      await serviceSignup.post({ url: "/auth/me", data: result }),
-    onSuccess: async (response) => {
-      console.log(response);
     },
   });
 

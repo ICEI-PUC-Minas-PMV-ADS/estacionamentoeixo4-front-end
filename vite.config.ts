@@ -1,11 +1,11 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import "dotenv/config";
 import * as path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    port: 3007,
+    port: 5173,
+    host: true
   },
 
   envDir: "./",

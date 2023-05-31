@@ -5,7 +5,7 @@ import { InputAdornment } from "@mui/material";
 import { Email } from "@mui/icons-material";
 import PasswordInput from "@components/FieldPassword";
 import { signIn } from "@services/firebase/signIn";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import AxiosRequest from "@src/services/axiosRequests/axiosRequests";
 
 export interface IMeMutate {
@@ -14,11 +14,11 @@ export interface IMeMutate {
 }
 const SignIn = () => {
   const serviceSignin = new AxiosRequest();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   //Form  Singin
-  const { register, handleSubmit, getValues } = useForm<{
+  const { register, handleSubmit } = useForm<{
     [key: string]: string | number;
   }>({
     defaultValues: {
