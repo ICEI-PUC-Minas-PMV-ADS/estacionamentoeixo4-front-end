@@ -18,7 +18,6 @@ const SignUp = () => {
   const serviceSignup = new AxiosRequest();
   const navigate = useNavigate();
 
-  // const queryClient = useQueryClient();
 
   //Form  Singin
   const { register, handleSubmit, watch } = useForm<TypeForm>({
@@ -29,32 +28,12 @@ const SignUp = () => {
     },
   });
 
-  //Mutation para chamar o Me
-  const mutationMe = useMutation<
-    {
-      email: string;
-      uuid_firebase: string;
-    },
-    Error,
-    {
-      email: string;
-      uuid_firebase: string;
-    }
-  >({
-    mutationKey: ["admin_me"],
-    mutationFn: async (result) =>
-      await serviceSignup.post({ url: "/auth/me", data: result }),
-    onSuccess: async (response) => {
-      console.log(response);
-    },
-  });
-
   //Mutation para criar admin no banco
   const mutationCreate = useMutation<TMutationAdm, Error, TMutationAdm>({
     mutationKey: ["admin_register"],
     mutationFn: async (result) =>
       await serviceSignup.post({
-        url: "/manager",
+        url: "/administrador",
         data: result,
       }),
   });
@@ -65,14 +44,6 @@ const SignUp = () => {
     if (password.match(passwordRepeat)) {
       // message
     }
-    const CallMe = (response) => {
-      return mutationMe
-        .mutateAsync({
-          email: response.email,
-          uuid_firebase: response.uuid_firebase,
-        })
-        .catch((error) => error);
-    };
 
     //Cria conta do admin no firebase
     await signUp(email, password)
@@ -86,6 +57,7 @@ const SignUp = () => {
           })
           .then(async () => {
             navigate("/auth/signin");
+            return;
           })
           .catch(async () => {
             //tenta segunda vez se caso o corra erro

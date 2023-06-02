@@ -2,17 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import DropdowLinks from "./DropdowLinks";
 import LinkMenu from "./LinkMenu";
-import Logo from "@images/logo/logo.png";
+import Logo from "@images/logo/logo.svg";
 import CoockiesService from "@src/services/auth/CoockieService";
 import { Dashboard } from "@mui/icons-material";
-import { TMenu } from "@src/menu/menu";
 const Sidebar = ({ sidebarOpen, setSidebarOpen, aria_control, menu }) => {
-  const [menuData, setMenu] = useState<TMenu>(menu);
   const { pathname } = useLocation();
   const trigger = useRef(null);
   const sidebar = useRef(null);
   const coockies = new CoockiesService();
-  const user = coockies.getUser();
+  const user = coockies.getAdmin();
   const storedSidebarExpanded = localStorage.getItem(
     `${aria_control}-expanded`
   );
@@ -106,7 +104,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, aria_control, menu }) => {
               MENU
             </h3>
 
-            <ul className="mb-6 flex flex-col gap-1.5">
+            <ul className="flex flex-col ">
               {menu.map((item, index) =>
                 /* <!-- Menu Item Dashboard --> */
                 item.childrens ? (

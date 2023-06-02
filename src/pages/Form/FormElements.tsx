@@ -1,13 +1,4 @@
 import Breadcrumb from "@components/Breadcrumb";
-import SwitcherOne from "@components/SwitcherOne";
-import SwitcherTwo from "@components/SwitcherTwo";
-import SwitcherFour from "@components/SwitcherFour";
-import SwitcherThree from "@components/SwitcherThree";
-import CheckboxOne from "@components/CheckboxOne";
-import CheckboxTwo from "@components/CheckboxTwo";
-import CheckboxThree from "@components/CheckboxThree";
-import CheckboxFour from "@components/CheckboxFour";
-import CheckboxFive from "@components/CheckboxFive";
 
 const FormElements = () => {
   return (
@@ -67,10 +58,10 @@ const FormElements = () => {
               </h3>
             </div>
             <div className="flex flex-col gap-5.5 p-6.5">
-              <SwitcherOne />
+              {/* <SwitcherOne />
               <SwitcherTwo />
               <SwitcherThree />
-              <SwitcherFour />
+              <SwitcherFour /> */}
             </div>
           </div>
 
@@ -221,11 +212,11 @@ const FormElements = () => {
               </h3>
             </div>
             <div className="flex flex-col gap-5.5 p-6.5">
-              <CheckboxOne />
+              {/* <CheckboxOne />
               <CheckboxTwo />
               <CheckboxThree />
               <CheckboxFour />
-              <CheckboxFive />
+              <CheckboxFive /> */}
             </div>
           </div>
 

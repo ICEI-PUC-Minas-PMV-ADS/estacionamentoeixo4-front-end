@@ -1,7 +1,5 @@
 import Axios from "axios";
-// import "dotenv/config";
 const AxiosInstance = Axios.create({
-  baseURL: "http://localhost:3000/api_producer",
-  headers: {},
+  baseURL: `${import.meta.env.HOST}:${import.meta.env.VITE_PORT}/api_producer`,
 });
 export default AxiosInstance;

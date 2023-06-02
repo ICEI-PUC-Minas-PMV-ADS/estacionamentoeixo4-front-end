@@ -1,0 +1,18 @@
+#  # Frontend
+#   frontend:
+#     image: frontend
+#     container_name: frontend
+#     depends_on:
+#       - api_producer
+#     networks:
+#       - backend-networks
+#     environment:
+#       - DEV=production
+#       - VITE_PORT=3000
+#       - VITE_SERVER=api_producer
+#     ports:
+#       - 5173:5173
+#     expose:
+#       - 5173
+#     volumes:
+#       - frontend-data:/var/lib/frontend
