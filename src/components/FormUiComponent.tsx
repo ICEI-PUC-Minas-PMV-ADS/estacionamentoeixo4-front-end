@@ -88,7 +88,7 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
     const [_barra, path, _lixo] = service.split("/");
     return path;
   };
-  
+
   useEffect(() => {
     setModelState(model);
     setTitleState(title);
@@ -132,42 +132,49 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-screen px-4">
+    <div className="flex items-center justify-center w-full h-auto px-4">
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center justify-start w-full min-h-screen p-12 px-20 border rounded-md gap-y-4 border-bodydark2 "
+        className="flex flex-col items-center justify-center w-full h-auto p-12 px-20 border rounded-md gap-y-4 border-bodydark2 "
       >
-        <h1 className="text-2xl font-bold font-satoshi">
+        <h1 className="text-2xl font-bold font-satoshi ">
           Cadastro do {titleState}
         </h1>
         {fieldsState.length !== 0 ? (
           fieldsState?.map((item, index) => {
             //Monta a row se o typeField for igual a row e alimenta com as childrens
-            if (item.typeField === "row") {
+            if (item.typeField === "row" || item.typeField === "field") {
               return (
-                <div
-                  key={index}
-                  className={`grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-${item.cols} lg:grid-cols-${item.cols} xl:gap-x-8`}
-                >
-                  {item.childrens?.map((child, indexChild) => {
-                    return (
-                      (child.typeField === "text" ||
-                        child.typeField === "number") && (
-                        <Field
-                          key={indexChild}
-                          type={child.typeField}
-                          name={child.bind as string}
-                          register={register}
-                          variant="filled"
-                          label={child.placeholder}
-                          className="w-full py-3 pl-6 pr-10 text-black border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none "
-                        />
-                      )
-                    );
-                  })}
-                </div>
-              );
+                <>
+                  {
+                    item.typeField === "field" && <h1 className="mr-auto left-0 text-1xl font-satoshi font-semibold">{item.placeholder}</h1>
+                  }
+                  <div
+                    key={index}
+                    className={`grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-${item.cols} lg:grid-cols-${item.cols} xl:gap-x-8`}
+                  >
+
+                    {
+                      item.childrens?.map((child, indexChild) => {
+                        return (
+                          (child.typeField === "text" ||
+                            child.typeField === "number") && (
+                            <Field
+                              key={indexChild}
+                              type={child.typeField}
+                              name={child.bind as string}
+                              register={register}
+                              variant="filled"
+                              label={child.placeholder}
+                              className="w-full py-3 pl-6 pr-10 text-black border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none"
+                            />
+                          )
+                        )
+                      })
+                    }
+                  </div>
+                </>);
             }
 
             // if (item.typeField === "text") {
@@ -211,8 +218,8 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
         >
           Cadastrar
         </button>
-      </Box>
-    </div>
+      </Box >
+    </div >
   );
 };
 export default FormUiComponent;

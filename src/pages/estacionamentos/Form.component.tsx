@@ -39,8 +39,47 @@ export default class FormEstacionamento extends CrudComponent {
             bind: "cnpj",
             placeholder: "CNPJ",
           },
+
         ],
       },
+      {
+        typeField: "field",
+        cols: 2,
+        bind: null,
+        placeholder: "Endereço",
+        childrens: [
+          {
+            typeField: "number",
+            bind: "cep",
+            placeholder: "CEP",
+          },
+          {
+            typeField: "text",
+            bind: "bairro",
+            placeholder: "Bairro",
+          },
+          {
+            typeField: "text",
+            bind: "endereco",
+            placeholder: "Endereco",
+          },
+          {
+            typeField: "text",
+            bind: "numero",
+            placeholder: "Número",
+          },
+          {
+            typeField: "text",
+            bind: "cidade",
+            placeholder: "Cidade",
+          },
+          {
+            typeField: "text",
+            bind: "uf",
+            placeholder: "UF",
+          },
+        ]
+      }
     ];
   }
 

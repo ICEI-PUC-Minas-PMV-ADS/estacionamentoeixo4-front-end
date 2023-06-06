@@ -7,7 +7,7 @@ export interface IForm {
   label?: string;
   bind: string | null;
   placeholder?: string;
-  typeField: "number" | "select" | "radioButton" | "checkbox" | "text" | "row";
+  typeField: "number" | "select" | "radioButton" | "checkbox" | "text" | "row" | "field";
   options?: { key: string | number; value: string | number }[];
   childrens?: IForm[];
 }
@@ -59,7 +59,7 @@ export default class CrudComponent extends React.Component<
     const fields = await this.fieldsForm();
     const modelForm = await this.modelForm();
     const path = await this.sPathRouteForm();
-
+    debugger
     //Service que faz manda a requisção
     const service = await this.serviceForm();
 
