@@ -53,4 +53,5 @@ export default class ReadEstacionamento extends ReadComponent {
   protected override async sPathRouteForm(): Promise<string> {
     return "Estacionamento";
   }
+
 }

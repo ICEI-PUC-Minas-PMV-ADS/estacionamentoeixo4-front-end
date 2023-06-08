@@ -1,6 +1,24 @@
 import CrudComponent, { IForm } from "@src/components/CrudComponent";
 import CoockiesService from "@src/services/auth/CoockieService";
+import { GeocodingService } from "@src/services/google/geocoding";
 
+
+
+type TModel = {
+  preco: number,
+  vagas_preferenciais: number,
+  vagas_gerais: number,
+  razao_social
+  cnpj: string,
+  endereco: string,
+  cep: number
+  bairro: string,
+  cidade: string,
+  numero: number,
+  uf: string,
+  lat: number
+  lgt: number
+}
 export default class FormEstacionamento extends CrudComponent {
   cookies: CoockiesService = new CoockiesService();
   constructor(props: never) {
@@ -11,21 +29,24 @@ export default class FormEstacionamento extends CrudComponent {
     return [
       {
         typeField: "row",
-        cols: 2,
+        cols: 3,
         bind: null,
         childrens: [
           {
             typeField: "text",
             bind: "preco",
+            widthField: "w-[100%]",
             placeholder: "Preço",
           },
           {
-            typeField: "number",
+            typeField: "text",
+            widthField: "w-[100%]",
             bind: "vagas_preferenciais",
             placeholder: "Número de vagas preferenciais",
           },
           {
-            typeField: "number",
+            typeField: "text",
+            widthField: "w-[100%]",
             bind: "vagas_gerais",
             placeholder: "Número de vagas gerais",
           },
@@ -35,7 +56,7 @@ export default class FormEstacionamento extends CrudComponent {
             placeholder: "Razão social",
           },
           {
-            typeField: "number",
+            typeField: "text",
             bind: "cnpj",
             placeholder: "CNPJ",
           },
@@ -49,20 +70,30 @@ export default class FormEstacionamento extends CrudComponent {
         placeholder: "Endereço",
         childrens: [
           {
-            typeField: "number",
+            typeField: "text",
+            widthField: "w-full",
+            bind: "endereco",
+            placeholder: "Endereco",
+          },
+          {
+            typeField: "text",
             bind: "cep",
             placeholder: "CEP",
           },
+        ]
+      },
+      {
+        typeField: "row",
+        cols: 3,
+        bind: null,
+        childrens: [
+
           {
             typeField: "text",
             bind: "bairro",
             placeholder: "Bairro",
           },
-          {
-            typeField: "text",
-            bind: "endereco",
-            placeholder: "Endereco",
-          },
+
           {
             typeField: "text",
             bind: "numero",
@@ -79,7 +110,7 @@ export default class FormEstacionamento extends CrudComponent {
             placeholder: "UF",
           },
         ]
-      }
+      },
     ];
   }
 
@@ -101,4 +132,18 @@ export default class FormEstacionamento extends CrudComponent {
   protected override async sPathRouteForm(): Promise<string> {
     return "Estacionamento";
   }
+
+  // Método que faz um beforeChangeModel antes de fazer requisição
+  async modelChangeData(model: TModel) {
+
+    const address = `${model?.cidade} ${model?.bairro} ${model?.endereco} ${model?.numero}`;
+    try {
+      const { lat, lng } = await GeocodingService.getGeocodingByAddress(address)
+      //  Chama o serviço do google e seta a longitude e latitude 
+      return { ...model, lat: lat, lgt: lng }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
 }

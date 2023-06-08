@@ -51,12 +51,12 @@ const Header = (props) => {
         {(pathname === "/" ||
           pathname === "/auth/signup" ||
           pathname === "/auth/signin") && (
-          <div className="hidden pl-8 sm:hide lg:block">
-            <Link className="flex-shrink-0 block " to="/">
-              <img src={Logo} className="w-12" alt="Logo" />
-            </Link>
-          </div>
-        )}
+            <div className="hidden pl-8 sm:hide lg:block">
+              <Link className="flex-shrink-0 block " to="/">
+                <img src={Logo} className="w-12" alt="Logo" />
+              </Link>
+            </div>
+          )}
 
         {pathname !== "/" &&
           pathname !== "/auth/signup" &&
@@ -114,14 +114,14 @@ const Header = (props) => {
             {/* <!-- Dark Mode Toggler --> */}
 
             {/* <!-- Notification Menu Area --> */}
-            {pathname !== "/auth/signup" &&
+            {/* {pathname !== "/auth/signup" &&
               pathname !== "/auth/signin" &&
-              pathname !== "/" && <DropdownNotification />}
+              pathname !== "/" && <DropdownNotification />} */}
             {/* <!-- Notification Menu Area --> */}
             {/* <!-- Chat Notification Area --> */}
-            {pathname !== "/auth/signup" &&
+            {/* {pathname !== "/auth/signup" &&
               pathname !== "/auth/signin" &&
-              pathname !== "/" && <DropdownMessage />}
+              pathname !== "/" && <DropdownMessage />} */}
             {/* <!-- Chat Notification Area --> */}
           </ul>
           {/* <!-- User Area --> */}

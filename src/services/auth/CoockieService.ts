@@ -10,14 +10,15 @@ export default class CoockiesService {
   };
   public readonly getAdmin = () => {
     const obj = Cookies.get("user");
-    const parser = obj ? JSON.parse(obj) : null;
+    const parser = obj && obj !== "undefined" ? JSON.parse(obj) : null;
     return parser;
   };
 
   public readonly getAdminInfos = () => {
     const obj = Cookies.get("userInfo");
-    const parser = obj ? JSON.parse(obj) : null;
+    const parser = obj && obj !== "undefined" ? JSON.parse(obj) : null;
     return parser;
+
   };
   public readonly removeAll = () => {
     ["user", "userInfo", "accessToken", "accessToken", "RefreshToken"].map(

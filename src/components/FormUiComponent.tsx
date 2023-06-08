@@ -60,14 +60,15 @@ import { useEffect, useState } from "react";
 // );
 
 export interface IProps {
-  model: object;
+  changeSetmodel: Function;
+  model: object
   title: string;
   service: string;
   fields: IForm[];
 }
 
-const FormUiComponent = ({ model, title, service, fields }: IProps) => {
-  const [modelState, setModelState] = useState({});
+const FormUiComponent = ({ changeSetmodel, model, title, service, fields }: IProps) => {
+  const [modelState, setModelState] = useState(model || {});
   const [titleState, setTitleState] = useState("Undefined");
   const [serviceState, setServiceState] = useState("");
   const [fieldsState, setFieldsState] = useState<IForm[]>([]);
@@ -90,7 +91,7 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
   };
 
   useEffect(() => {
-    setModelState(model);
+    setModelState(model || {});
     setTitleState(title);
     setServiceState(service);
     setFieldsState(fields || []);
@@ -119,6 +120,8 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
 
   const onSubmit = async (data: any) => {
     const dataParser = modelParser(data);
+    changeSetmodel(data || {});
+    debugger
     console.log(data);
     await mutationCrud
       .mutateAsync({ ...dataParser })
@@ -136,9 +139,9 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center justify-center w-full h-auto p-12 px-20 border rounded-md gap-y-4 border-bodydark2 "
+        className="flex flex-col items-center justify-center w-full h-auto p-12 px-10 border rounded-md gap-y-4 border-bodydark2 "
       >
-        <h1 className="text-2xl font-bold font-satoshi ">
+        <h1 className="text-2xl mb-10 font-bold font-satoshi ">
           Cadastro do {titleState}
         </h1>
         {fieldsState.length !== 0 ? (
@@ -146,13 +149,13 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
             //Monta a row se o typeField for igual a row e alimenta com as childrens
             if (item.typeField === "row" || item.typeField === "field") {
               return (
-                <>
+                <div key={index} className={`w-full h-auto `}>
                   {
-                    item.typeField === "field" && <h1 className="mr-auto left-0 text-1xl font-satoshi font-semibold">{item.placeholder}</h1>
+                    item.typeField === "field" && <h1 className="mt-10 mr-auto left-0 text-1xl mb-4 font-satoshi font-semibold">{item.placeholder}</h1>
                   }
                   <div
                     key={index}
-                    className={`grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-${item.cols} lg:grid-cols-${item.cols} xl:gap-x-8`}
+                    className={`grid w-full  items-start justify-start  grid-cols-1 gap-x-2   gap-y-4 sm:grid-cols-${Number(item.cols) - 1} md:grid-cols-${Number(item.cols)} xl:grid-cols-${Number(item.cols)} lg:grid-cols-${Number(item.cols)} `}
                   >
 
                     {
@@ -167,14 +170,14 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
                               register={register}
                               variant="filled"
                               label={child.placeholder}
-                              className="w-full py-3 pl-6 pr-10 text-black border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none"
+                              className={`${child.widthField ? child.widthField : 'w-full'} py-3 pl-6 pr-10 text-black border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none`}
                             />
                           )
                         )
                       })
                     }
                   </div>
-                </>);
+                </div>);
             }
 
             // if (item.typeField === "text") {

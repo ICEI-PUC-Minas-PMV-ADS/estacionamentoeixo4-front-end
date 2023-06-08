@@ -8,14 +8,13 @@ interface GeocodingOutput {
 }
 
 export class GeocodingService {
-  static async getGeocodingByAddress(
+   static async getGeocodingByAddress(
     address: String
   ): Promise<GeocodingOutput> {
     try {
       let geocoding = (
         await axios.get(
-          `${baseURL}${address.replaceAll(" ", "+")}&key=${
-            import.meta.env.VITE_GOOGLE_KEY
+          `${baseURL}${address.replaceAll(" ", "+")}&key=${import.meta.env.VITE_GOOGLE_KEY
           }`
         )
       ).data;

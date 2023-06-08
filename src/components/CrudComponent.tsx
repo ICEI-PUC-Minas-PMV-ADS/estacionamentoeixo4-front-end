@@ -6,6 +6,7 @@ export interface IForm {
   cols?: number;
   label?: string;
   bind: string | null;
+  widthField?: string,
   placeholder?: string;
   typeField: "number" | "select" | "radioButton" | "checkbox" | "text" | "row" | "field";
   options?: { key: string | number; value: string | number }[];
@@ -15,7 +16,7 @@ export interface IForm {
 type TState = {
   title: string;
   fields: IForm[];
-  model: object;
+  model: Object;
   service: string;
   path: string;
 };
@@ -29,8 +30,8 @@ export default class CrudComponent extends React.Component<
 
   state: TState = {
     service: "",
-    fields: [],
     model: {},
+    fields: [],
     title: "",
     path: "",
   };
@@ -53,25 +54,31 @@ export default class CrudComponent extends React.Component<
   protected async sPathRouteForm(): Promise<string> {
     throw new Error("Faltou implementar o sPathRouteForm");
   }
+
+  public modelChangeData(_model: any) {
+    return _model
+  }
+
   async componentDidMount() {
     //Recupera os propertyes
     const title = await this.titleForm();
     const fields = await this.fieldsForm();
     const modelForm = await this.modelForm();
     const path = await this.sPathRouteForm();
-    debugger
+
     //Service que faz manda a requisção
     const service = await this.serviceForm();
 
     this.setState((state: TState) => ({
       ...state,
       fields: fields,
-      model: modelForm,
       title: title,
       service: service,
       path: path,
     }));
   }
+
+
 
   render() {
     return (
@@ -79,8 +86,9 @@ export default class CrudComponent extends React.Component<
         <>
           <Breadcrumb pageName={this.state.path} />
           <FormUiComponent
+            changeSetmodel={this.modelChangeData}
             fields={this.state.fields}
-            model={this.state.model}
+            model={this.modelChangeData}
             service={this.state.service}
             title={this.state.title}
           />
