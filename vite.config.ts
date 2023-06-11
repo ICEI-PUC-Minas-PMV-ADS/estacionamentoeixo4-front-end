@@ -3,9 +3,9 @@ import react from "@vitejs/plugin-react";
 import * as path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: {
+  preview: {
     port: 5173,
-    host: true
+    host: true,
   },
 
   envDir: "./",

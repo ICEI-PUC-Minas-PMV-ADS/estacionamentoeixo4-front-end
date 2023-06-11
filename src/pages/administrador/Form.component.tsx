@@ -1,7 +1,7 @@
 import CrudComponent from "@src/components/CrudComponent";
 
 export default class FormAdm extends CrudComponent {
-  constructor(props: never) {
+  constructor(props: any) {
     super(props);
   }
 }

@@ -24,7 +24,7 @@ export default class CrudComponent extends React.Component<
   React.Attributes,
   TState
 > {
-  constructor(props: never) {
+  constructor(props: any) {
     super(props);
   }
 

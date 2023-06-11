@@ -4,7 +4,7 @@ import CoockiesService from "@src/services/auth/CoockieService";
 
 export default class ReadEstacionamento extends ReadComponent {
   cookies: CoockiesService = new CoockiesService();
-  constructor(props: never) {
+  constructor(props: any) {
     super(props);
   }
   protected override async colunsTable(): Promise<HeadCell[]> {

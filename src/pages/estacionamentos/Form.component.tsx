@@ -21,7 +21,7 @@ type TModel = {
 }
 export default class FormEstacionamento extends CrudComponent {
   cookies: CoockiesService = new CoockiesService();
-  constructor(props: never) {
+  constructor(props: any) {
     super(props);
   }
 

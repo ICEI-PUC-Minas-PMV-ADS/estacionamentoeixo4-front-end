@@ -24,7 +24,7 @@
     "noEmit": false,
     "jsx": "react-jsx",
     "forceConsistentCasingInFileNames": false,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@src/*": [
