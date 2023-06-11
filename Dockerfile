@@ -8,16 +8,14 @@ WORKDIR /usr/front
 COPY package.json ./
 
 # Install app dependencies
-RUN npm install 
+RUN npm i 
 
 
 # Bundle app source
 COPY . .
 
-# Creates a "dist" folder with the production build
-RUN npm run build
 
-EXPOSE 5173
+EXPOSE 8000
 
 # Start the server using the production build
-CMD [ "npm", "run", "preview" ]
+CMD [ "npm", "run", "dev" ]
