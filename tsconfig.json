@@ -3,7 +3,12 @@
     "baseUrl": "./",
     "target": "ESNext",
     "outDir": "./dist",
-    "lib": [ "DOM","DOM.Iterable","ESNext","WebWorker"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext",
+      "WebWorker"
+    ],
     "module": "ESNext",
     "useDefineForClassFields": true,
     "noImplicitAny": false,
@@ -17,10 +22,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
-    "jsx": "react-jsx", 
-    "forceConsistentCasingInFileNames": true, 
+    "jsx": "react-jsx",
+    "forceConsistentCasingInFileNames": false,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": false,
     "paths": {
       "@src/*": [
         "./src/*"
