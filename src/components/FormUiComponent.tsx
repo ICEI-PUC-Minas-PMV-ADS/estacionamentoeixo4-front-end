@@ -119,10 +119,8 @@ const FormUiComponent = ({ changeSetmodel, model, title, service, fields }: IPro
   };
 
   const onSubmit = async (data: any) => {
+    const model = await changeSetmodel(data || {});
     const dataParser = modelParser(data);
-    changeSetmodel(data || {});
-    debugger
-    console.log(data);
     await mutationCrud
       .mutateAsync({ ...dataParser })
       .then((result) => {

@@ -14,6 +14,8 @@ import Dashboard from "@src/pages/Dashboard";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import Profile from "@src/pages/Profile";
 import Settings from "@src/pages/Settings";
+import FormReservar from "@src/pages/reserva/Form.component";
+import ReadReservar from "@src/pages/reserva/Read.component";
 
 const routes = createBrowserRouter([
   {
@@ -112,11 +114,11 @@ const routes = createBrowserRouter([
             children: [
               {
                 path: "read",
-                Component: () => <ReadAdm />,
+                Component: () => <ReadReservar />,
               },
               {
                 path: "create",
-                Component: () => <FormAdm />,
+                Component: () => <FormReservar />,
               },
               {
                 path: "edit/:id",

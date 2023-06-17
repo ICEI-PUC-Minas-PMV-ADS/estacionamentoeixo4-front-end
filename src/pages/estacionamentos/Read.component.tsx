@@ -43,7 +43,7 @@ export default class ReadEstacionamento extends ReadComponent {
   //Url do servico que irá recupera os dados
   protected override async nameServiceTable(): Promise<string> {
     const user = this.cookies.getAdmin();
-    return `/estacionamento/${user.id}`;
+    return `/estacionamento/adm/${user.id}`;
   }
 
   protected override async orderByTable(): Promise<string> {

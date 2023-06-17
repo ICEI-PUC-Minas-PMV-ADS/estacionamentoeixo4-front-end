@@ -55,7 +55,7 @@ export default class CrudComponent extends React.Component<
     throw new Error("Faltou implementar o sPathRouteForm");
   }
 
-  public modelChangeData(_model: any) {
+  public async modelChangeData(_model: any): Promise<any> {
     return _model
   }
 

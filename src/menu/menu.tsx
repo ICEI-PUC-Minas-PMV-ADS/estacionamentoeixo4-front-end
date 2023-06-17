@@ -92,12 +92,12 @@ export default [
     childrens: [
       {
         title: "Visualizar",
-        link: "/read",
+        link: "/dashboard/reserva/read",
         icon: <TableChartOutlined />,
       },
       {
         title: "Cadastrar",
-        link: "/create",
+        link: "/dashboard/reserva/create",
         icon: <AddBoxOutlined />,
       },
     ],
