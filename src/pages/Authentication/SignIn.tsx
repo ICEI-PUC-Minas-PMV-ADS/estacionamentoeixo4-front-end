@@ -8,7 +8,8 @@ import { signIn } from "@services/firebase/signIn";
 import { useMutation } from "react-query";
 import AxiosRequest from "@src/services/axiosRequests/axiosRequests";
 import BackdropComponent from "@src/components/Backdrop";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import CoockiesService from "@src/services/auth/CoockieService";
 
 export interface IMeMutate {
   email: string;
@@ -19,6 +20,15 @@ const SignIn = () => {
   const serviceSignin = new AxiosRequest();
   // const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const cookieService = new CoockiesService()
+  const user = cookieService.getAdmin() || null
+
+  useEffect(() => {
+    if(user) {
+      navigate("/dashboard/")
+    }
+  }, [])
 
   //Form  Singin
   const { register, handleSubmit } = useForm<{
@@ -49,7 +59,7 @@ const SignIn = () => {
           })
           .then(() => {
             setBusy(false)
-            navigate("/dashboard/home/read");
+            navigate("/dashboard/");
           })
           .catch(async () => {
             setBusy(false)
@@ -61,7 +71,7 @@ const SignIn = () => {
               })
               .then(() => {
                 setBusy(false)
-                navigate("/dashboard/home/read");
+                navigate("/dashboard/");
               })
               .catch((err) => {
                 setBusy(false)

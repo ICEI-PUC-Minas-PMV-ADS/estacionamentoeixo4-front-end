@@ -23,7 +23,6 @@ const SignUp = () => {
   const serviceSignup = new AxiosRequest();
   const navigate = useNavigate();
 
-
   //Form  Singin
   const { register, handleSubmit, watch } = useForm<TypeForm>({
     defaultValues: {

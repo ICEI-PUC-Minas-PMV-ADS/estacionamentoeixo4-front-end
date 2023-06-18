@@ -65,7 +65,7 @@ const DropdownUser = () => {
           .mutateAsync()
           .then(() => {
             coockies.removeAll();
-            navigate("/auth");
+            navigate("/signin");
           })
           .catch(async () => {
             await mutationOut.mutateAsync().then(() => {
@@ -81,11 +81,11 @@ const DropdownUser = () => {
 
   return (
     <div className="relative z-50">
-      <Link
+      <a
         ref={trigger}
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="flex items-center gap-4"
-        to="/dashboard/user/profile"
+        //to="/dashboard/user/profile"
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
@@ -117,7 +117,7 @@ const DropdownUser = () => {
             fill=""
           />
         </svg>
-      </Link>
+      </a>
 
       {/* <!-- Dropdown Start --> */}
       <div
