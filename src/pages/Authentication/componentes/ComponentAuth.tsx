@@ -8,8 +8,8 @@ const ComponentAuth = () => {
   const navigate = useNavigate();
   useEffect(() => {
     //se for /auth navega para sigin
-    if (pathname === "/auth") {
-      navigate("/auth/signin");
+    if (pathname === "/") {
+      navigate("/signin");
     }
   });
 

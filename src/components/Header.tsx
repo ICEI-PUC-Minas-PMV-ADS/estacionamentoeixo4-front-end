@@ -50,7 +50,7 @@ const Header = (props) => {
 
         {(pathname === "/" ||
           pathname === "/auth/signup" ||
-          pathname === "/auth/signin") && (
+          pathname === "/signin") && (
             <div className="hidden pl-8 sm:hide lg:block">
               <Link className="flex-shrink-0 block " to="/">
                 <img src={Logo} className="w-12" alt="Logo" />
@@ -60,7 +60,7 @@ const Header = (props) => {
 
         {pathname !== "/" &&
           pathname !== "/auth/signup" &&
-          pathname !== "/auth/signin" && (
+          pathname !== "/signin" && (
             <div className="hidden sm:block">
               <form
                 action="https://formbold.com/s/unique_form_id"
@@ -104,29 +104,29 @@ const Header = (props) => {
         <div className="flex items-center gap-3 2xsm:gap-7">
           <ul className="flex items-center gap-2 2xsm:gap-4">
             {(pathname === "/auth/signup" ||
-              pathname === "/auth/signin" ||
+              pathname === "/signin" ||
               pathname === "/") && <NavHome />}
 
             {/* <!-- Dark Mode Toggler --> */}
             {pathname !== "/auth/signup" &&
-              pathname !== "/auth/signin" &&
+              pathname !== "/signin" &&
               pathname !== "/" && <DarkModeSwitcher />}
             {/* <!-- Dark Mode Toggler --> */}
 
             {/* <!-- Notification Menu Area --> */}
             {/* {pathname !== "/auth/signup" &&
-              pathname !== "/auth/signin" &&
+              pathname !== "/signin" &&
               pathname !== "/" && <DropdownNotification />} */}
             {/* <!-- Notification Menu Area --> */}
             {/* <!-- Chat Notification Area --> */}
             {/* {pathname !== "/auth/signup" &&
-              pathname !== "/auth/signin" &&
+              pathname !== "/signin" &&
               pathname !== "/" && <DropdownMessage />} */}
             {/* <!-- Chat Notification Area --> */}
           </ul>
           {/* <!-- User Area --> */}
           {pathname !== "/auth/signup" &&
-            pathname !== "/auth/signin" &&
+            pathname !== "/signin" &&
             pathname !== "/" && <DropdownUser />}
           {/* <!-- User Area --> */}
         </div>

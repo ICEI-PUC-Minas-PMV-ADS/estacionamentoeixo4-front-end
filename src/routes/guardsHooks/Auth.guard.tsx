@@ -12,7 +12,7 @@ export const useAuthGuard = (pathname) => {
     const coockies = new CoockiesService();
     const user = coockies.getAdmin();
 
-    if (request.includes("/auth/signin")) {
+    if (request.includes("/signin")) {
       if (user) {
         navigate("/dashboard");
       }
@@ -20,7 +20,7 @@ export const useAuthGuard = (pathname) => {
 
     if (request.includes("/dashboard")) {
       if (!user) {
-        navigate("/auth/signin");
+        navigate("/signin");
         coockies.removeCoockie("accessToken");
         coockies.removeCoockie("RefreshToken");
       }

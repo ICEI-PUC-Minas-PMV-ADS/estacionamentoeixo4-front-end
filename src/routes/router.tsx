@@ -18,30 +18,35 @@ import FormReservar from "@src/pages/reserva/Form.component";
 import ReadReservar from "@src/pages/reserva/Read.component";
 
 const routes = createBrowserRouter([
+
   {
     path: "/",
+    Component: () => <ComponentAuth />,
+    children: [
+      {
+        index: true,
+        path: "/signin",
+        Component: () => <SignIn />,
+      },
+      {
+        path: "/signup",
+        Component: () => <SignUp />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
     Component: () => {
       return <DefaultLayout />;
     },
     children: [
       {
-        index: true,
-        path: "/",
-        Component: Home,
-      },
-
-      {
-        path: "dashboard",
+        path: "",
         Component: () => <DashboardPage />,
         children: [
           {
             path: "home",
-            children: [
-              {
-                path: "read",
-                Component: () => <Dashboard />,
-              },
-            ],
+            Component: () => <Dashboard />,
           },
           {
             path: "user",
@@ -130,21 +135,7 @@ const routes = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "auth",
-    Component: () => <ComponentAuth />,
-    children: [
-      {
-        index: true,
-        path: "signin",
-        Component: () => <SignIn />,
-      },
-      {
-        path: "signup",
-        Component: () => <SignUp />,
-      },
-    ],
-  },
+
 ]);
 
 export default routes;

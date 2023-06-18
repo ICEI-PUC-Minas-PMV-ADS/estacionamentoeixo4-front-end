@@ -70,7 +70,7 @@ const DropdownUser = () => {
           .catch(async () => {
             await mutationOut.mutateAsync().then(() => {
               coockies.removeAll();
-              navigate("/auth/signin");
+              navigate("/signin");
             });
           });
       })
@@ -95,7 +95,7 @@ const DropdownUser = () => {
 
         {pathname !== "/" &&
           pathname !== "/auth/signup" &&
-          pathname !== "/auth/signin" && (
+          pathname !== "/signin" && (
             <span className="w-12 h-12 rounded-full">
               <img src={Logo} alt="User" />
             </span>

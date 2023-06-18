@@ -75,7 +75,7 @@ export default [
     childrens: [
       {
         title: "Visualizar",
-        link: "/read",
+        link: "/dasboard/vaga/read",
         icon: <TableChartOutlined />,
       },
       {

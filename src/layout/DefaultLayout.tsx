@@ -16,25 +16,25 @@ const DefaultLayout = () => {
     setRequest(pathname);
   }, [pathname, setRequest, request, navigate]);
 
-  if (pathname === "/auth/signin") {
-    return (
-      <main className="flex flex-col w-full h-screen overflow-hidden">
-        <div className="mx-auto max-w-screen-2xl">
-          <Outlet />
-        </div>
-      </main>
-    );
-  }
+  // if (pathname === "/signin") {
+  //   return (
+  //     <main className="flex flex-col w-full h-screen overflow-hidden">
+  //       <div className="mx-auto max-w-screen-2xl">
+  //         <Outlet />
+  //       </div>
+  //     </main>
+  //   );
+  // }
 
-  if (pathname === "/auth/signup") {
-    return (
-      <main className="flex flex-col w-full h-screen overflow-hidden">
-        <div className="mx-auto max-w-screen-2xl ">
-          <Outlet />
-        </div>
-      </main>
-    );
-  }
+  // if (pathname === "/signup") {
+  //   return (
+  //     <main className="flex flex-col w-full h-screen overflow-hidden">
+  //       <div className="mx-auto max-w-screen-2xl ">
+  //         <Outlet />
+  //       </div>
+  //     </main>
+  //   );
+  // }
 
   if (pathname === "/") {
     return (
@@ -59,7 +59,7 @@ const DefaultLayout = () => {
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
-        {pathname !== "/auth/signup" && pathname !== "/auth/signin" ? (
+        {pathname !== "/auth/signup" && pathname !== "/signin" ? (
           <Sidebar
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}

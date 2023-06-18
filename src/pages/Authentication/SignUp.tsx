@@ -9,12 +9,17 @@ import PasswordInput from "@components/FieldPassword";
 import { signUp } from "@services/firebase/signUp";
 import { useMutation } from "react-query";
 import AxiosRequest from "@src/services/axiosRequests/axiosRequests";
+import BackdropComponent from "@src/components/Backdrop";
+import { useState } from "react";
+
+
 type TMutationAdm = {
   nome: string;
   email: string;
   uuid_firebase: string;
 };
 const SignUp = () => {
+  const [isBusy, setBusy] = useState(false)
   const serviceSignup = new AxiosRequest();
   const navigate = useNavigate();
 
@@ -36,10 +41,12 @@ const SignUp = () => {
         url: "/administrador",
         data: result,
       }),
+
   });
 
   //OnSubmit
   const onSubmit = async (obj) => {
+    setBusy(true)
     const { name, email, password, passwordRepeat } = obj;
     if (password.match(passwordRepeat)) {
       // message
@@ -48,6 +55,7 @@ const SignUp = () => {
     //Cria conta do admin no firebase
     await signUp(email, password)
       .then(async (response) => {
+        setBusy(true)
         //Cadastra no banco admin
         await mutationCreate
           .mutateAsync({
@@ -56,10 +64,12 @@ const SignUp = () => {
             uuid_firebase: response.user.uid,
           })
           .then(async () => {
-            navigate("/auth/signin");
+            setBusy(false)
+            navigate("/signin");
             return;
           })
           .catch(async () => {
+            setBusy(false)
             //tenta segunda vez se caso o corra erro
             await mutationCreate
               .mutateAsync({
@@ -68,12 +78,16 @@ const SignUp = () => {
                 uuid_firebase: response.user.uid,
               })
               .then(async () => {
-                navigate("/auth/signin");
+                setBusy(false)
+                navigate("/signin");
               });
           });
       })
       .catch(() => {
+        setBusy(false)
         // tratar erro na tela firebase
+      }).finally(() => {
+        setBusy(false)
       });
   };
 
@@ -147,12 +161,14 @@ const SignUp = () => {
       <div className="pb-8 mt-3 text-center">
         <p>
           Ja tem uma conta?{" "}
-          <Link to="/auth/signin" className="text-primary">
+          <Link to="/signin" className="text-primary">
             Login
           </Link>
         </p>
       </div>
+      <BackdropComponent enabled={isBusy} />
     </form>
+
   );
 };
 
