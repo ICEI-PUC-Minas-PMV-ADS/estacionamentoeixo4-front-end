@@ -1,9 +1,6 @@
 import { Component } from "react";
 import EnhancedTable, { Data, HeadCell } from "./TableComponent";
-type Tprops = {
-  title: string;
-  columns: HeadCell[];
-};
+import Breadcrumb from "./Breadcrumb";
 
 type TState = {
   title: string;
@@ -11,8 +8,12 @@ type TState = {
   rows: Data[];
   orderBy: string;
   service: string;
+  path: string;
 };
-export default abstract class ReadComponent extends Component<Tprops, TState> {
+export default abstract class ReadComponent extends Component<
+  React.Attributes,
+  TState
+> {
   columns: HeadCell[] = [];
   override state: TState = {
     title: "",
@@ -20,6 +21,7 @@ export default abstract class ReadComponent extends Component<Tprops, TState> {
     rows: [],
     orderBy: "",
     service: "",
+    path: "",
   };
 
   //Monta o title da tabela
@@ -40,11 +42,16 @@ export default abstract class ReadComponent extends Component<Tprops, TState> {
     throw new Error("Implementar orderByTable");
   }
 
+  protected async sPathRouteForm(): Promise<string> {
+    throw new Error("Faltou implementar o sPathRouteForm");
+  }
+
   async componentDidMount() {
     //Recupera as propererties  da tabela
     const colunas = await this.colunsTable();
     const title = await this.titleTable();
     const orderBy = await this.orderByTable();
+    const path = await this.sPathRouteForm();
 
     //Fazer a requisição para o backend para  recupera os dados
     const service = await this.nameServiceTable();
@@ -54,18 +61,22 @@ export default abstract class ReadComponent extends Component<Tprops, TState> {
       title: title,
       service: service,
       orderBy: orderBy,
+      path: path,
     }));
   }
 
   render() {
     return (
       this.state.service && (
-        <EnhancedTable
-          orderBy={this.state.orderBy}
-          service={this.state.service}
-          title={this.state.title}
-          colunms={this.state?.columns}
-        />
+        <>
+          <Breadcrumb pageName={this.state.path} />
+          <EnhancedTable
+            orderBy={this.state.orderBy}
+            service={this.state.service}
+            title={this.state.title}
+            colunms={this.state?.columns}
+          />
+        </>
       )
     );
   }

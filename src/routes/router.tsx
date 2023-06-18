@@ -4,41 +4,78 @@ import SignUp from "@src/pages/Authentication/SignUp";
 import ComponentAuth from "@src/pages/Authentication/componentes/ComponentAuth";
 import DashboardPage from "@src/pages/DashboardPage";
 import Home from "@src/pages/Home";
-import Tables from "@src/pages/Tables";
 import FormAdm from "@src/pages/administrador/Form.component";
 import ReadAdm from "@src/pages/administrador/Read.component";
 import FormEstacionamento from "@src/pages/estacionamentos/Form.component";
 import ReadEstacionamento from "@src/pages/estacionamentos/Read.component";
 import FormUsers from "@src/pages/users/Form.component";
 import ReadUser from "@src/pages/users/Read.component";
-import { createBrowserRouter } from "react-router-dom";
+import Dashboard from "@src/pages/Dashboard";
+import { Outlet, createBrowserRouter } from "react-router-dom";
+import Profile from "@src/pages/Profile";
+import Settings from "@src/pages/Settings";
+import FormReservar from "@src/pages/reserva/Form.component";
+import ReadReservar from "@src/pages/reserva/Read.component";
 
 const routes = createBrowserRouter([
+
   {
     path: "/",
+    Component: () => <ComponentAuth />,
+    children: [
+      {
+        index: true,
+        path: "/signin",
+        Component: () => <SignIn />,
+      },
+      {
+        path: "/signup",
+        Component: () => <SignUp />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
     Component: () => {
       return <DefaultLayout />;
     },
     children: [
       {
-        index: true,
-        path: "/",
-        Component: Home,
-      },
-      {
-        path: "dashboard",
+        path: "",
         Component: () => <DashboardPage />,
         children: [
+          {
+            path: "home",
+            Component: () => <Dashboard />,
+          },
+          {
+            path: "user",
+            Component: () => <Outlet />,
+            children: [
+              {
+                path: "settings",
+                Component: () => <Settings />,
+              },
+              {
+                path: "profile",
+                Component: () => <Profile />,
+              },
+            ],
+          },
           {
             path: "users",
             children: [
               {
                 path: "read",
-                Component: () => <ReadUser title="Usuários" />,
+                Component: () => <ReadUser />,
               },
               {
                 path: "create",
-                Component: () => <FormUsers title="Criar usuários" />,
+                Component: () => <FormUsers />,
+              },
+              {
+                path: "edit/:id",
+                Component: () => <FormUsers />,
               },
             ],
           },
@@ -48,13 +85,15 @@ const routes = createBrowserRouter([
             children: [
               {
                 path: "read",
-                Component: () => <ReadEstacionamento title="Estacionamentos" />,
+                Component: () => <ReadEstacionamento />,
               },
               {
                 path: "create",
-                Component: () => (
-                  <FormEstacionamento title="Criar estacionamento" />
-                ),
+                Component: () => <FormEstacionamento />,
+              },
+              {
+                path: "edit/:id",
+                Component: () => <FormEstacionamento />,
               },
             ],
           },
@@ -63,11 +102,32 @@ const routes = createBrowserRouter([
             children: [
               {
                 path: "read",
-                Component: () => <ReadAdm title="Administradores" />,
+                Component: () => <ReadAdm />,
               },
               {
                 path: "create",
-                Component: () => <FormAdm title="Criar administrador" />,
+                Component: () => <FormAdm />,
+              },
+              {
+                path: "edit/:id",
+                Component: () => <FormAdm />,
+              },
+            ],
+          },
+          {
+            path: "reserva",
+            children: [
+              {
+                path: "read",
+                Component: () => <ReadReservar />,
+              },
+              {
+                path: "create",
+                Component: () => <FormReservar />,
+              },
+              {
+                path: "edit/:id",
+                Component: () => <FormAdm />,
               },
             ],
           },
@@ -75,39 +135,7 @@ const routes = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "auth",
-    Component: () => <ComponentAuth />,
-    children: [
-      {
-        index: true,
-        path: "signin",
-        Component: () => <SignIn />,
-      },
-      {
-        path: "signup",
-        Component: () => <SignUp />,
-      },
-    ],
-  },
+
 ]);
 
 export default routes;
-
-// <Routes>
-// <Route path="/" element={<Home />} />
-// <Route path="/adm" element={<Analytics />} />
-
-// <Route path="/calendar" element={<Calendar />} />
-// <Route path="/calendar" element={<Calendar />} />
-// <Route path="/profile" element={<Profile />} />
-// <Route path="/forms/form-elements" element={<FormElements />} />
-// <Route path="/forms/form-layout" element={<FormLayout />} />
-// <Route path="/tables" element={<Tables />} />
-// <Route path="/settings" element={<Settings />} />
-// <Route path="/chart" element={<Chart />} />
-// <Route path="/ui/alerts" element={<Alerts />} />
-// <Route path="/ui/buttons" element={<Buttons />} />
-// <Route path="/auth/signin" element={<SignIn />} />
-// <Route path="/auth/signup" element={<SignUp />} />
-// </Routes>

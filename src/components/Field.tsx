@@ -35,14 +35,16 @@ const Field = ({
       backgroundColor: "white",
       borderTopLeftRadius: "0.5rem",
       borderTopRightRadius: "0.5rem",
+      color: "#8A99AF",
     },
-
+    color: "#8A99AF",
     // input label when focused
     "& label.Mui-focused": {
       color: "#5E5CE5",
     },
     "& .MuiInput-underline:before": {
       color: "#5E5CE5",
+      backgroundColor: "white",
     },
     // focused color for input with variant='standard'
     "& .MuiInput-underline:after": {

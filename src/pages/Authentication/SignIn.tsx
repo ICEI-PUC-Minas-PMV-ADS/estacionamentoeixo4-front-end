@@ -5,20 +5,23 @@ import { InputAdornment } from "@mui/material";
 import { Email } from "@mui/icons-material";
 import PasswordInput from "@components/FieldPassword";
 import { signIn } from "@services/firebase/signIn";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import AxiosRequest from "@src/services/axiosRequests/axiosRequests";
+import BackdropComponent from "@src/components/Backdrop";
+import { useState } from "react";
 
 export interface IMeMutate {
   email: string;
   uuid_firebase: string;
 }
 const SignIn = () => {
+  const [isBusy, setBusy] = useState(false)
   const serviceSignin = new AxiosRequest();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   //Form  Singin
-  const { register, handleSubmit, getValues } = useForm<{
+  const { register, handleSubmit } = useForm<{
     [key: string]: string | number;
   }>({
     defaultValues: {
@@ -35,17 +38,21 @@ const SignIn = () => {
   });
 
   const onSubmit = async (data) => {
+    setBusy(true)
     signIn(data.email, data.password)
       .then(async (res) => {
+        setBusy(false)
         await mutationMe
           .mutateAsync({
             email: res.user.email as string,
             uuid_firebase: res.user.uid,
           })
           .then(() => {
-            navigate("/dashboard");
+            setBusy(false)
+            navigate("/dashboard/home/read");
           })
           .catch(async () => {
+            setBusy(false)
             // Tentar fazer a chamanda mais uma vez
             await mutationMe
               .mutateAsync({
@@ -53,14 +60,19 @@ const SignIn = () => {
                 uuid_firebase: res.user.uid,
               })
               .then(() => {
-                navigate("/dashboard");
+                setBusy(false)
+                navigate("/dashboard/home/read");
               })
-              .catch((err) => err);
+              .catch((err) => {
+                setBusy(false)
+                return err
+              });
           });
       })
       .catch(() => {
         // Tratar os erros na tela
-        debugger;
+      }).finally(() => {
+        setBusy(false)
       });
   };
 
@@ -106,12 +118,13 @@ const SignIn = () => {
       <div className="mt-6 text-center">
         <p>
           Ainda não tem conta?{" "}
-          <Link to="/auth/signup" className="text-primary">
+          <Link to="/signup" className="text-primary">
             Cadastre-se
           </Link>
         </p>
       </div>
-      {getValues("password")}
+      <BackdropComponent enabled={isBusy} />
+
     </form>
   );
 };

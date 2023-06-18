@@ -9,16 +9,20 @@ import PasswordInput from "@components/FieldPassword";
 import { signUp } from "@services/firebase/signUp";
 import { useMutation } from "react-query";
 import AxiosRequest from "@src/services/axiosRequests/axiosRequests";
+import BackdropComponent from "@src/components/Backdrop";
+import { useState } from "react";
+
+
 type TMutationAdm = {
   nome: string;
   email: string;
   uuid_firebase: string;
 };
 const SignUp = () => {
+  const [isBusy, setBusy] = useState(false)
   const serviceSignup = new AxiosRequest();
   const navigate = useNavigate();
 
-  // const queryClient = useQueryClient();
 
   //Form  Singin
   const { register, handleSubmit, watch } = useForm<TypeForm>({
@@ -29,54 +33,29 @@ const SignUp = () => {
     },
   });
 
-  //Mutation para chamar o Me
-  const mutationMe = useMutation<
-    {
-      email: string;
-      uuid_firebase: string;
-    },
-    Error,
-    {
-      email: string;
-      uuid_firebase: string;
-    }
-  >({
-    mutationKey: ["admin_me"],
-    mutationFn: async (result) =>
-      await serviceSignup.post({ url: "/auth/me", data: result }),
-    onSuccess: async (response) => {
-      console.log(response);
-    },
-  });
-
   //Mutation para criar admin no banco
   const mutationCreate = useMutation<TMutationAdm, Error, TMutationAdm>({
     mutationKey: ["admin_register"],
     mutationFn: async (result) =>
       await serviceSignup.post({
-        url: "/manager",
+        url: "/administrador",
         data: result,
       }),
+
   });
 
   //OnSubmit
   const onSubmit = async (obj) => {
+    setBusy(true)
     const { name, email, password, passwordRepeat } = obj;
     if (password.match(passwordRepeat)) {
       // message
     }
-    const CallMe = (response) => {
-      return mutationMe
-        .mutateAsync({
-          email: response.email,
-          uuid_firebase: response.uuid_firebase,
-        })
-        .catch((error) => error);
-    };
 
     //Cria conta do admin no firebase
     await signUp(email, password)
       .then(async (response) => {
+        setBusy(true)
         //Cadastra no banco admin
         await mutationCreate
           .mutateAsync({
@@ -85,9 +64,12 @@ const SignUp = () => {
             uuid_firebase: response.user.uid,
           })
           .then(async () => {
-            navigate("/auth/signin");
+            setBusy(false)
+            navigate("/signin");
+            return;
           })
           .catch(async () => {
+            setBusy(false)
             //tenta segunda vez se caso o corra erro
             await mutationCreate
               .mutateAsync({
@@ -96,12 +78,16 @@ const SignUp = () => {
                 uuid_firebase: response.user.uid,
               })
               .then(async () => {
-                navigate("/auth/signin");
+                setBusy(false)
+                navigate("/signin");
               });
           });
       })
       .catch(() => {
+        setBusy(false)
         // tratar erro na tela firebase
+      }).finally(() => {
+        setBusy(false)
       });
   };
 
@@ -175,12 +161,14 @@ const SignUp = () => {
       <div className="pb-8 mt-3 text-center">
         <p>
           Ja tem uma conta?{" "}
-          <Link to="/auth/signin" className="text-primary">
+          <Link to="/signin" className="text-primary">
             Login
           </Link>
         </p>
       </div>
+      <BackdropComponent enabled={isBusy} />
     </form>
+
   );
 };
 

@@ -19,7 +19,7 @@ type TModel = {
   lat: number
   lgt: number
 }
-export default class FormEstacionamento extends CrudComponent {
+export default class FormReservar extends CrudComponent {
   cookies: CoockiesService = new CoockiesService();
   constructor(props: any) {
     super(props);

@@ -4,7 +4,7 @@ import CoockiesService from "@src/services/auth/CoockieService";
 
 export default class ReadEstacionamento extends ReadComponent {
   cookies: CoockiesService = new CoockiesService();
-  constructor(props: never) {
+  constructor(props: any) {
     super(props);
   }
   protected override async colunsTable(): Promise<HeadCell[]> {
@@ -42,11 +42,16 @@ export default class ReadEstacionamento extends ReadComponent {
 
   //Url do servico que irá recupera os dados
   protected override async nameServiceTable(): Promise<string> {
-    const user = this.cookies.getUser();
-    return `/estacionamento/${user.id}`;
+    const user = this.cookies.getAdmin();
+    return `/estacionamento/adm/${user.id}`;
   }
 
   protected override async orderByTable(): Promise<string> {
     return "preco";
   }
+
+  protected override async sPathRouteForm(): Promise<string> {
+    return "Estacionamento";
+  }
+
 }

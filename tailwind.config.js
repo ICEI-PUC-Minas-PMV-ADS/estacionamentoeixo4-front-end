@@ -10,6 +10,7 @@ module.exports = {
     },
     colors: {
       current: 'currentColor',
+      "teste": "red",
       transparent: 'transparent',
       white: '#FFFFFF',
       black: '#1C2434',
@@ -22,7 +23,7 @@ module.exports = {
       secondary: '#80CAEE',
       stroke: '#E2E8F0',
       gray: '#EFF4FB',
-      graydark: '#333A48',
+      graydark: '#64748B',
       'gray-2': '#F7F9FC',
       'gray-3': '#FAFAFA',
       whiten: '#F1F5F9',
@@ -45,12 +46,12 @@ module.exports = {
       danger: '#D34053',
       warning: '#FFA70B',
     },
-    screens: {
-      '2xsm': '375px',
-      xsm: '425px',
-      '3xl': '2000px',
-      ...defaultTheme.screens,
-    },
+    // screens: {
+    //   '2xsm': '375px',
+    //   xsm: '425px',
+    //   '3xl': '2000px',
+    ...defaultTheme.screens,
+    // },
     extend: {
       fontSize: {
         'title-xxl': ['44px', '55px'],

@@ -2,40 +2,67 @@
   "compilerOptions": {
     "baseUrl": "./",
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext", "WebWorker"],
+    "outDir": "./dist",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext",
+      "WebWorker"
+    ],
     "module": "ESNext",
-    "skipLibCheck": false,
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
+    "useDefineForClassFields": true,
     "noImplicitAny": false,
-    "noImplicitUseStrict": false,
-    "useDefineForClassFields": false,
-    "noImplicitOverride": false,
-    "allowJs": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "inlineSourceMap": true,
-    /* Linting */
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": false,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "jsx": "react-jsx",
+    "forceConsistentCasingInFileNames": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@src/*": ["./src/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@components/*": ["./src/components/*"],
-      "@routes/*": ["./src/routes/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@services/*": ["./src/services/*"],
-      "@images/*": ["./src/images/*"],
-      "@layout/*": ["./src/layout/*"],
-      "@hooks/*": ["./src/hooks/*"]
+      "@src/*": [
+        "./src/*"
+      ],
+      "@pages/*": [
+        "./src/pages/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@routes/*": [
+        "./src/routes/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ],
+      "@images/*": [
+        "./src/images/*"
+      ],
+      "@layout/*": [
+        "./src/layout/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ]
     }
   },
-
-  "include": ["src", "index.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src",
+    "index.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

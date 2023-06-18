@@ -70,7 +70,7 @@ const Settings = () => {
                         Phone Number
                       </label>
                       <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray px-4.5 py-3 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                         type="text"
                         name="phoneNumber"
                         id="phoneNumber"
@@ -132,7 +132,7 @@ const Settings = () => {
                       Username
                     </label>
                     <input
-                      className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                      className="w-full rounded border border-stroke bg-gray px-4.5 py-3 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                       type="text"
                       name="Username"
                       id="Username"
@@ -239,7 +239,7 @@ const Settings = () => {
 
                   <div
                     id="FileUpload"
-                    className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border-2 border-dashed border-primary bg-gray py-4 px-4 dark:bg-meta-4 sm:py-7.5"
+                    className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border-2 border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4 sm:py-7.5"
                   >
                     <input
                       type="file"
@@ -304,7 +304,7 @@ const Settings = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

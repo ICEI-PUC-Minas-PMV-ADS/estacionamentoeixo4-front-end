@@ -20,9 +20,9 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import AxiosRequest from "@src/services/axiosRequests/axiosRequests";
-import { set } from "react-hook-form";
+// import { set } from "react-hook-form";
 
 export interface Data {
   [key: string]: string | number;
@@ -112,16 +112,16 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   }, [colunms]);
 
   return (
-    <TableHead className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4">
-      <TableRow className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4">
+    <TableHead className="text-white bg-white dark:bg-boxdark-2 dark:text-white">
+      <TableRow className="bg-white text-white4 dark:bg-boxdark-2 dark:text-white">
         <TableCell
           padding="checkbox"
-          className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+          className="bg-white text-boxdark dark:bg-boxdark-2 dark:text-white"
         >
           <Checkbox
             color="info"
             indeterminate={numSelected > 0 && numSelected < rowCount}
-            className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+            className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white"
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
@@ -131,15 +131,18 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         </TableCell>
         {columnsData?.map((headCell) => (
           <TableCell
-            className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+            className="bg-white text-boxdark-2 dark:bg-boxdark-2 dark:text-white"
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
-              className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+              className="bg-white text-boxdark-2 dark:bg-boxdark-2 dark:text-white"
               active={orderBy === headCell.id}
+              sx={{
+                color: `##1C2434`,
+              }}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
             >
@@ -148,7 +151,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                 <Box
                   component="span"
                   sx={visuallyHidden}
-                  className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+                  className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white"
                 >
                   {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </Box>
@@ -171,18 +174,10 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 
   return (
     <Toolbar
-      className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
-      // sx={{
-      //   pl: { sm: 2 },
-      //   pr: { xs: 1, sm: 1 },
-      //   ...(numSelected > 0 && {
-      //     bgcolor: (theme) =>
-      //       alpha(
-      //         theme.palette.primary.main,
-      //         theme.palette.action.activatedOpacity
-      //       ),
-      //   }),
-      // }}
+      className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white"
+      sx={{
+        color: `##1C2434`,
+      }}
     >
       {numSelected > 0 ? (
         <Typography
@@ -195,7 +190,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Typography>
       ) : (
         <Typography
-          className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+          className="bg-white text-black-2 dark:bg-boxdark-2 dark:text-white"
           sx={{ flex: "1 1 100%" }}
           variant="h6"
           id="tableTitle"
@@ -207,7 +202,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       {numSelected > 0 ? (
         <Tooltip
           title="Delete"
-          className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+          className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white"
         >
           <IconButton>
             <DeleteIcon />
@@ -267,7 +262,7 @@ export default function EnhancedTable({
 
   //Mutations
   const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
+    _event: React.MouseEvent<unknown>,
     property: keyof Data
   ) => {
     const isAsc = orderByFetch === property && order === "asc";
@@ -287,7 +282,7 @@ export default function EnhancedTable({
   };
 
   const handleClick = (
-    event: React.MouseEvent<HTMLTableRowElement>,
+    _event: React.MouseEvent<HTMLTableRowElement>,
     n: number
   ) => {
     const selectedIndex = selected.indexOf(n);
@@ -309,7 +304,7 @@ export default function EnhancedTable({
     setSelected(newSelected);
   };
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
@@ -344,16 +339,16 @@ export default function EnhancedTable({
   return (
     <Box
       sx={{ width: "100%" }}
-      className="dark:bg-boxdark-2 dark:text-white bg-gray text-meta-4 px-2"
+      className="px-2 bg-gray text-meta-4 dark:bg-boxdark-2 dark:text-white"
     >
       <Paper
         sx={{ width: "100%", mb: 2 }}
-        className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+        className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white"
       >
         <EnhancedTableToolbar numSelected={selected.length} title={title} />
-        <TableContainer className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4">
+        <TableContainer className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white">
           <Table
-            className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+            className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white"
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
@@ -367,14 +362,14 @@ export default function EnhancedTable({
               onRequestSort={handleRequestSort}
               rowCount={rowsFetch.length}
             />
-            <TableBody className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4">
+            <TableBody className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white">
               {visibleRows.map((row, index) => {
                 const isItemSelected = isSelected(Number(row.id));
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
-                    className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+                    className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white"
                     hover
                     onClick={(event) => handleClick(event, Number(row.id))}
                     role="checkbox"
@@ -386,10 +381,10 @@ export default function EnhancedTable({
                   >
                     <TableCell
                       padding="checkbox"
-                      className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+                      className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white"
                     >
                       <Checkbox
-                        className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+                        className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white"
                         color="info"
                         checked={isItemSelected}
                         inputProps={{
@@ -402,7 +397,7 @@ export default function EnhancedTable({
                       <TableCell
                         key={index}
                         align="right"
-                        className="dark:bg-boxdark-2 dark:text-white bg-white text-meta-4"
+                        className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white"
                       >
                         {row[item.id]}
                       </TableCell>
@@ -412,14 +407,14 @@ export default function EnhancedTable({
               })}
               {emptyRows > 0 && (
                 <TableRow
-                  className="dark:bg-boxdark-2 dark:text-white bg-body text-body  "
+                  className="bg-body text-body dark:bg-boxdark-2 dark:text-white "
                   style={{
                     height: (dense ? 33 : 53) * emptyRows,
                   }}
                 >
                   <TableCell
                     colSpan={6}
-                    className="dark:bg-boxdark-2 dark:text-white bg-white text-body"
+                    className="bg-white text-body dark:bg-boxdark-2 dark:text-white"
                   />
                 </TableRow>
               )}
@@ -427,7 +422,7 @@ export default function EnhancedTable({
           </Table>
         </TableContainer>
         <TablePagination
-          className="dark:bg-boxdark-2 dark:text-white bg-white text-body"
+          className="bg-white text-body dark:bg-boxdark-2 dark:text-white"
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={rowsFetch.length}
@@ -438,13 +433,13 @@ export default function EnhancedTable({
         />
       </Paper>
       <FormControlLabel
-        className="dark:bg-boxdark-2 dark:text-white bg-gray text-body px-3"
+        className="px-3 bg-gray text-body dark:bg-boxdark-2 dark:text-white"
         control={
           <Switch
             color="default"
             checked={dense}
             onChange={handleChangeDense}
-            className="dark:bg-boxdark-2 dark:text-white bg-gray text-body"
+            className="bg-gray text-body dark:bg-boxdark-2 dark:text-white"
           />
         }
         label="Dense padding"
