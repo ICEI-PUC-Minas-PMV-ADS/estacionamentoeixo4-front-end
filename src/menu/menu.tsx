@@ -19,40 +19,40 @@ export type TMenu = {
 };
 
 export default [
-  {
-    title: "Usuários",
-    childrens: [
-      {
-        title: "Visualizar",
-        link: "/dashboard/users/read",
-        icon: <TableChartOutlined />,
-      },
-      {
-        title: "Cadastrar",
-        link: "/dashboard/users/create",
-        icon: <AddBoxOutlined />,
-      },
-    ],
-    link: "",
-    icon: <Person2 />,
-  },
-  {
-    title: "Administradores",
-    link: "",
-    icon: <ManageAccounts />,
-    childrens: [
-      {
-        title: "Visualizar",
-        link: "/dashboard/administrador/read",
-        icon: <TableChartOutlined />,
-      },
-      {
-        title: "Cadastrar",
-        link: "/dashboard/administrador/create",
-        icon: <AddBoxOutlined />,
-      },
-    ],
-  },
+  // {
+  //   title: "Clientes",
+  //   childrens: [
+  //     {
+  //       title: "Visualizar",
+  //       link: "/dashboard/cliente/read",
+  //       icon: <TableChartOutlined />,
+  //     },
+  //     {
+  //       title: "Cadastrar",
+  //       link: "/dashboard/cliente/create",
+  //       icon: <AddBoxOutlined />,
+  //     },
+  //   ],
+  //   link: "",
+  //   icon: <Person2 />,
+  // },
+  // {
+  //   title: "Administradores",
+  //   link: "",
+  //   icon: <ManageAccounts />,
+  //   childrens: [
+  //     {
+  //       title: "Visualizar",
+  //       link: "/dashboard/administrador/read",
+  //       icon: <TableChartOutlined />,
+  //     },
+  //     {
+  //       title: "Cadastrar",
+  //       link: "/dashboard/administrador/create",
+  //       icon: <AddBoxOutlined />,
+  //     },
+  //   ],
+  // },
   {
     title: "Estacionamentos",
     childrens: [
@@ -70,23 +70,23 @@ export default [
     link: "",
     icon: <Garage />,
   },
-  {
-    title: "Vagas",
-    childrens: [
-      {
-        title: "Visualizar",
-        link: "/dasboard/vaga/read",
-        icon: <TableChartOutlined />,
-      },
-      {
-        title: "Cadastrar",
-        link: "/create",
-        icon: <AddBoxOutlined />,
-      },
-    ],
-    link: "",
-    icon: <CarRepair />,
-  },
+  // {
+  //   title: "Vagas",
+  //   childrens: [
+  //     {
+  //       title: "Visualizar",
+  //       link: "/dasboard/vaga/read",
+  //       icon: <TableChartOutlined />,
+  //     },
+  //     {
+  //       title: "Cadastrar",
+  //       link: "/create",
+  //       icon: <AddBoxOutlined />,
+  //     },
+  //   ],
+  //   link: "",
+  //   icon: <CarRepair />,
+  // },
   {
     title: "Reservas",
     childrens: [
@@ -95,21 +95,21 @@ export default [
         link: "/dashboard/reserva/read",
         icon: <TableChartOutlined />,
       },
-      {
-        title: "Cadastrar",
-        link: "/dashboard/reserva/create",
-        icon: <AddBoxOutlined />,
-      },
+      // {
+      //   title: "Cadastrar",
+      //   link: "/dashboard/reserva/create",
+      //   icon: <AddBoxOutlined />,
+      // },
     ],
     link: "",
     icon: <NoCrash />,
   },
-  {
-    title: "Status das Reservas",
-    childrens: null,
-    link: "",
-    icon: <CarCrash />,
-  },
+    // {
+    //   title: "Status das Reservas",
+    //   childrens: null,
+    //   link: "",
+    //   icon: <CarCrash />,
+    // },
 ] as TMenu[];
 
 export const menu_inital: TMenu[] = [
