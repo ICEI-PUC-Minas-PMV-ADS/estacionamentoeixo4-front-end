@@ -16,25 +16,6 @@ const DefaultLayout = () => {
     setRequest(pathname);
   }, [pathname, setRequest, request, navigate]);
 
-  // if (pathname === "/signin") {
-  //   return (
-  //     <main className="flex flex-col w-full h-screen overflow-hidden">
-  //       <div className="mx-auto max-w-screen-2xl">
-  //         <Outlet />
-  //       </div>
-  //     </main>
-  //   );
-  // }
-
-  // if (pathname === "/signup") {
-  //   return (
-  //     <main className="flex flex-col w-full h-screen overflow-hidden">
-  //       <div className="mx-auto max-w-screen-2xl ">
-  //         <Outlet />
-  //       </div>
-  //     </main>
-  //   );
-  // }
 
   if (pathname === "/") {
     return (
