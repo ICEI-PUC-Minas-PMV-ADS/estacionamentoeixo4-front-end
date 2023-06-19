@@ -8,8 +8,8 @@ import FormAdm from "@src/pages/administrador/Form.component";
 import ReadAdm from "@src/pages/administrador/Read.component";
 import FormEstacionamento from "@src/pages/estacionamentos/Form.component";
 import ReadEstacionamento from "@src/pages/estacionamentos/Read.component";
-import FormUsers from "@src/pages/users/Form.component";
-import ReadUser from "@src/pages/users/Read.component";
+import FormUsers from "@src/pages/clientes/Form.component";
+import ReadUser from "@src/pages/clientes/Read.component";
 import Dashboard from "@src/pages/Dashboard";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import Profile from "@src/pages/Profile";
@@ -62,26 +62,25 @@ const routes = createBrowserRouter([
               },
             ],
           },
-          {
-            path: "users",
-            children: [
-              {
-                path: "read",
-                Component: () => <ReadUser />,
-              },
-              {
-                path: "create",
-                Component: () => <FormUsers />,
-              },
-              {
-                path: "edit/:id",
-                Component: () => <FormUsers />,
-              },
-            ],
-          },
+          // {
+          //   path: "cliente",
+          //   children: [
+          //     {
+          //       path: "read",
+          //       Component: () => <ReadUser />,
+          //     },
+          //     {
+          //       path: "create",
+          //       Component: () => <FormUsers />,
+          //     },
+          //     {
+          //       path: "edit/:id",
+          //       Component: () => <FormUsers />,
+          //     },
+          //   ],
+          // },
           {
             path: "estacionamento",
-
             children: [
               {
                 path: "read",

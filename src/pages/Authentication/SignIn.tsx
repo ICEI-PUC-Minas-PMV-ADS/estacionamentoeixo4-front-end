@@ -25,8 +25,8 @@ const SignIn = () => {
   const user = cookieService.getAdmin() || null
 
   useEffect(() => {
-    if(user) {
-      navigate("/dashboard/")
+    if (user) {
+      navigate("/dashboard/home")
     }
   }, [])
 
@@ -59,7 +59,7 @@ const SignIn = () => {
           })
           .then(() => {
             setBusy(false)
-            navigate("/dashboard/");
+            navigate("/dashboard/home");
           })
           .catch(async () => {
             setBusy(false)
@@ -71,7 +71,7 @@ const SignIn = () => {
               })
               .then(() => {
                 setBusy(false)
-                navigate("/dashboard/");
+                navigate("/dashboard/home");
               })
               .catch((err) => {
                 setBusy(false)
