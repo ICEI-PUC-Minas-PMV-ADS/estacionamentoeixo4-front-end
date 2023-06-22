@@ -9,16 +9,17 @@ export interface IForm {
   widthField?: string;
   placeholder?: string;
   typeField:
-    | "number"
-    | "select"
-    | "radioButton"
-    | "checkbox"
-    | "text"
-    | "row"
-    | "field";
+  | "number"
+  | "select"
+  | "radioButton"
+  | "checkbox"
+  | "text"
+  | "row"
+  | "field";
   options?: { key: string | number; value: string | number }[];
   childrens?: IForm[];
   mask?: string;
+  maxLength?: number
 }
 
 type TState = {

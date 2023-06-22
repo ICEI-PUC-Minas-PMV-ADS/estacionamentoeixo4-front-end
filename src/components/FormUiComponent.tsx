@@ -121,11 +121,10 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
                   )}
                   <div
                     key={index}
-                    className={`grid w-full  grid-cols-1 items-start  justify-start gap-x-2   gap-y-4 sm:grid-cols-${
-                      Number(item.cols) - 1
-                    } md:grid-cols-${Number(item.cols)} xl:grid-cols-${Number(
-                      item.cols
-                    )} lg:grid-cols-${Number(item.cols)} `}
+                    className={`grid w-full  grid-cols-1 items-start  justify-start gap-x-2   gap-y-4 sm:grid-cols-${Number(item.cols) - 1
+                      } md:grid-cols-${Number(item.cols)} xl:grid-cols-${Number(
+                        item.cols
+                      )} lg:grid-cols-${Number(item.cols)} `}
                   >
                     {item.childrens?.map((child, indexChild) => {
                       return (
@@ -138,9 +137,9 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
                             register={register}
                             variant="filled"
                             label={child.placeholder}
-                            className={`${
-                              child.widthField ? child.widthField : "w-full"
-                            } rounded-lg border border-stroke py-3 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none`}
+                            maxLength={child.maxLength}
+                            className={`${child.widthField ? child.widthField : "w-full"
+                              } rounded-lg border border-stroke py-3 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none`}
                             mask={child.mask}
                           />
                         )

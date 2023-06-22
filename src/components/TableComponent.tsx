@@ -432,18 +432,7 @@ export default function EnhancedTable({
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      {/* <FormControlLabel
-        className="px-3 bg-gray text-body dark:bg-boxdark-2 dark:text-white"
-        control={
-          <Switch
-            color="default"
-            checked={dense}
-            onChange={handleChangeDense}
-            className="bg-gray text-body dark:bg-boxdark-2 dark:text-white"
-          />
-        }
-        label="Dense padding"
-      /> */}
+ 
     </Box>
   );
 }

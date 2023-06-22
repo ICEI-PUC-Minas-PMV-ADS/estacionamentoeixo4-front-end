@@ -35,19 +35,23 @@ export default class FormEstacionamento extends CrudComponent {
             bind: "preco",
             widthField: "w-[100%]",
             placeholder: "Preço",
-            mask: "",
+            mask: "R$",
           },
           {
             typeField: "text",
             widthField: "w-[100%]",
             bind: "vagas_preferenciais",
             placeholder: "Número de vagas preferenciais",
+            mask: "999",
+
           },
           {
             typeField: "text",
             widthField: "w-[100%]",
             bind: "vagas_gerais",
             placeholder: "Número de vagas gerais",
+            mask: "999",
+
           },
           {
             typeField: "text",
@@ -58,6 +62,7 @@ export default class FormEstacionamento extends CrudComponent {
             typeField: "text",
             bind: "cnpj",
             placeholder: "CNPJ",
+            mask: "99.999.999/9999-99",
           },
         ],
       },
@@ -77,6 +82,7 @@ export default class FormEstacionamento extends CrudComponent {
             typeField: "text",
             bind: "cep",
             placeholder: "CEP",
+            mask: "99009-999"
           },
         ],
       },
@@ -95,6 +101,8 @@ export default class FormEstacionamento extends CrudComponent {
             typeField: "text",
             bind: "numero",
             placeholder: "Número",
+            mask: "9999",
+
           },
           {
             typeField: "text",
@@ -105,6 +113,7 @@ export default class FormEstacionamento extends CrudComponent {
             typeField: "text",
             bind: "uf",
             placeholder: "UF",
+            maxLength: 2
           },
         ],
       },
