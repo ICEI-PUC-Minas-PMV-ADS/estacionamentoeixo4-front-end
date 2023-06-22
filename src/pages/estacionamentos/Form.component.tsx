@@ -2,23 +2,21 @@ import CrudComponent, { IForm } from "@src/components/CrudComponent";
 import CoockiesService from "@src/services/auth/CoockieService";
 import { GeocodingService } from "@src/services/google/geocoding";
 
-
-
 type TModel = {
-  preco: number,
-  vagas_preferenciais: number,
-  vagas_gerais: number,
-  razao_social
-  cnpj: string,
-  endereco: string,
-  cep: number
-  bairro: string,
-  cidade: string,
-  numero: number,
-  uf: string,
-  lat: number
-  lgt: number
-}
+  preco: number;
+  vagas_preferenciais: number;
+  vagas_gerais: number;
+  razao_social;
+  cnpj: string;
+  endereco: string;
+  cep: number;
+  bairro: string;
+  cidade: string;
+  numero: number;
+  uf: string;
+  lat: number;
+  lgt: number;
+};
 export default class FormEstacionamento extends CrudComponent {
   cookies: CoockiesService = new CoockiesService();
   constructor(props: any) {
@@ -37,6 +35,7 @@ export default class FormEstacionamento extends CrudComponent {
             bind: "preco",
             widthField: "w-[100%]",
             placeholder: "Preço",
+            mask: "",
           },
           {
             typeField: "text",
@@ -60,7 +59,6 @@ export default class FormEstacionamento extends CrudComponent {
             bind: "cnpj",
             placeholder: "CNPJ",
           },
-
         ],
       },
       {
@@ -80,14 +78,13 @@ export default class FormEstacionamento extends CrudComponent {
             bind: "cep",
             placeholder: "CEP",
           },
-        ]
+        ],
       },
       {
         typeField: "row",
         cols: 3,
         bind: null,
         childrens: [
-
           {
             typeField: "text",
             bind: "bairro",
@@ -109,7 +106,7 @@ export default class FormEstacionamento extends CrudComponent {
             bind: "uf",
             placeholder: "UF",
           },
-        ]
+        ],
       },
     ];
   }
@@ -135,18 +132,16 @@ export default class FormEstacionamento extends CrudComponent {
 
   // Método que faz um beforeChangeModel antes de fazer requisição
   async modelChangeData(model: TModel) {
-
-    const address = `${model?.cidade} ${model?.bairro} ${model?.endereco} ${model?.numero}`;
-    try {
-      const { lat, lng } = await GeocodingService.getGeocodingByAddress(address)
-      //  Chama o serviço do google e seta a longitude e latitude 
-      model.lat = lat
-      model.lgt = lng
-      return model;
-
-    } catch (err) {
-      console.error(err)
-    }
+    console.log(">>>>> modelChangeData");
+    // const address = `${model?.cidade} ${model?.bairro} ${model?.endereco} ${model?.numero}`;
+    // try {
+    //   const { lat, lng } = await GeocodingService.getGeocodingByAddress(address)
+    //   //  Chama o serviço do google e seta a longitude e latitude
+    //   model.lat = lat
+    //   model.lgt = lng
+    //   return model;
+    // } catch (err) {
+    //   console.error(err)
+    // }
   }
-
 }

@@ -6,11 +6,19 @@ export interface IForm {
   cols?: number;
   label?: string;
   bind: string | null;
-  widthField?: string,
+  widthField?: string;
   placeholder?: string;
-  typeField: "number" | "select" | "radioButton" | "checkbox" | "text" | "row" | "field";
+  typeField:
+    | "number"
+    | "select"
+    | "radioButton"
+    | "checkbox"
+    | "text"
+    | "row"
+    | "field";
   options?: { key: string | number; value: string | number }[];
   childrens?: IForm[];
+  mask?: string;
 }
 
 type TState = {
@@ -56,7 +64,7 @@ export default class CrudComponent extends React.Component<
   }
 
   public async modelChangeData(_model: any): Promise<any> {
-    return _model
+    return _model;
   }
 
   async componentDidMount() {
@@ -78,15 +86,12 @@ export default class CrudComponent extends React.Component<
     }));
   }
 
-
-
   render() {
     return (
       this.state.title && (
         <>
           <Breadcrumb pageName={this.state.path} />
           <FormUiComponent
-            changeSetmodel={this.modelChangeData}
             fields={this.state.fields}
             model={this.modelChangeData}
             service={this.state.service}

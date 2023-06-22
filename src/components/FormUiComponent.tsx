@@ -9,65 +9,16 @@ import { useMutation } from "react-query";
 import AxiosRequest from "@src/services/axiosRequests/axiosRequests";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-
-// interface CustomProps {
-//   onChange: (event: { target: { name: string; value: string } }) => void;
-//   name: string;
-// }
-
-// const TextMaskCustom = React.forwardRef<React.ReactElement, CustomProps>(
-//   function TextMaskCustom(props, ref) {
-//     const [value, setValue] = React.useState("");
-//     const { onChange, ...other } = props;
-//     return (
-//       <IMaskInput
-//         {...other}
-//         defaultValue={value}
-//         mask="(#00) 000-0000"
-//         definitions={{
-//           "#": /[1-9]/,
-//         }}
-//         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-//           setValue(e.currentTarget.value);
-//         }}
-//         inputRef={ref}
-//       />
-//     );
-//   }
-// );
-
-// const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
-//   function NumericFormatCustom(props, ref) {
-//     const { onChange, ...other } = props;
-//     return (
-//       <NumericFormat
-//         {...other}
-//         getInputRef={ref}
-//         onValueChange={(values) => {
-//           onChange({
-//             target: {
-//               name: props.name,
-//               value: values.value,
-//             },
-//           });
-//         }}
-//         thousandSeparator
-//         valueIsNumericString
-//         prefix="$"
-//       />
-//     );
-//   }
-// );
+import { GeocodingService } from "@src/services/google/geocoding";
 
 export interface IProps {
-  changeSetmodel: Function;
-  model: object
+  model: object;
   title: string;
   service: string;
   fields: IForm[];
 }
 
-const FormUiComponent = ({ changeSetmodel, model, title, service, fields }: IProps) => {
+const FormUiComponent = ({ model, title, service, fields }: IProps) => {
   const [modelState, setModelState] = useState(model || {});
   const [titleState, setTitleState] = useState("Undefined");
   const [serviceState, setServiceState] = useState("");
@@ -88,6 +39,21 @@ const FormUiComponent = ({ changeSetmodel, model, title, service, fields }: IPro
   const fnGetPathUrl = () => {
     const [_barra, path, _lixo] = service.split("/");
     return path;
+  };
+
+  const geocoding = async (model) => {
+    const address = `${model?.endereco} ${model?.numero} ${model?.bairro} ${model?.cidade}`;
+    try {
+      const { lat, lng } = await GeocodingService.getGeocodingByAddress(
+        address
+      );
+      //  Chama o serviço do google e seta a longitude e latitude
+      model.lat = lat;
+      model.lgt = lng;
+      return model;
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
@@ -119,8 +85,8 @@ const FormUiComponent = ({ changeSetmodel, model, title, service, fields }: IPro
   };
 
   const onSubmit = async (data: any) => {
-    const model = await changeSetmodel(data || {});
-    const dataParser = modelParser(data);
+    const model = await geocoding(data || {});
+    const dataParser = modelParser(model);
     await mutationCrud
       .mutateAsync({ ...dataParser })
       .then((result) => {
@@ -133,13 +99,13 @@ const FormUiComponent = ({ changeSetmodel, model, title, service, fields }: IPro
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-auto px-4">
+    <div className="flex h-auto w-full items-center justify-center px-4">
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center justify-center w-full h-auto p-12 px-10 border rounded-md gap-y-4 border-bodydark2 "
+        className="flex h-auto w-full flex-col items-center justify-center gap-y-4 rounded-md border border-bodydark2 p-12 px-10 "
       >
-        <h1 className="text-2xl mb-10 font-bold font-satoshi ">
+        <h1 className="mb-10 font-satoshi text-2xl font-bold ">
           Cadastro do {titleState}
         </h1>
         {fieldsState.length !== 0 ? (
@@ -147,35 +113,42 @@ const FormUiComponent = ({ changeSetmodel, model, title, service, fields }: IPro
             //Monta a row se o typeField for igual a row e alimenta com as childrens
             if (item.typeField === "row" || item.typeField === "field") {
               return (
-                <div key={index} className={`w-full h-auto `}>
-                  {
-                    item.typeField === "field" && <h1 className="mt-10 mr-auto left-0 text-1xl mb-4 font-satoshi font-semibold">{item.placeholder}</h1>
-                  }
+                <div key={index} className={`h-auto w-full `}>
+                  {item.typeField === "field" && (
+                    <h1 className="text-1xl left-0 mb-4 mr-auto mt-10 font-satoshi font-semibold">
+                      {item.placeholder}
+                    </h1>
+                  )}
                   <div
                     key={index}
-                    className={`grid w-full  items-start justify-start  grid-cols-1 gap-x-2   gap-y-4 sm:grid-cols-${Number(item.cols) - 1} md:grid-cols-${Number(item.cols)} xl:grid-cols-${Number(item.cols)} lg:grid-cols-${Number(item.cols)} `}
+                    className={`grid w-full  grid-cols-1 items-start  justify-start gap-x-2   gap-y-4 sm:grid-cols-${
+                      Number(item.cols) - 1
+                    } md:grid-cols-${Number(item.cols)} xl:grid-cols-${Number(
+                      item.cols
+                    )} lg:grid-cols-${Number(item.cols)} `}
                   >
-
-                    {
-                      item.childrens?.map((child, indexChild) => {
-                        return (
-                          (child.typeField === "text" ||
-                            child.typeField === "number") && (
-                            <Field
-                              key={indexChild}
-                              type={child.typeField}
-                              name={child.bind as string}
-                              register={register}
-                              variant="filled"
-                              label={child.placeholder}
-                              className={`${child.widthField ? child.widthField : 'w-full'} py-3 pl-6 pr-10 text-black border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none`}
-                            />
-                          )
+                    {item.childrens?.map((child, indexChild) => {
+                      return (
+                        (child.typeField === "text" ||
+                          child.typeField === "number") && (
+                          <Field
+                            key={indexChild}
+                            type={child.typeField}
+                            name={child.bind as string}
+                            register={register}
+                            variant="filled"
+                            label={child.placeholder}
+                            className={`${
+                              child.widthField ? child.widthField : "w-full"
+                            } rounded-lg border border-stroke py-3 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none`}
+                            mask={child.mask}
+                          />
                         )
-                      })
-                    }
+                      );
+                    })}
                   </div>
-                </div>);
+                </div>
+              );
             }
 
             // if (item.typeField === "text") {
@@ -219,8 +192,8 @@ const FormUiComponent = ({ changeSetmodel, model, title, service, fields }: IPro
         >
           Cadastrar
         </button>
-      </Box >
-    </div >
+      </Box>
+    </div>
   );
 };
 export default FormUiComponent;
