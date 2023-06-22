@@ -16,6 +16,7 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import moment from 'moment'
 import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -75,6 +76,7 @@ export interface HeadCell {
   disablePadding: boolean;
   id: keyof Data;
   label: string;
+  fieldType?: string;
   numeric: boolean;
 }
 
@@ -315,12 +317,36 @@ export default function EnhancedTable({
     setPage(0);
   };
 
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  };
+  // const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setDense(event.target.checked);
+  // };
 
   const isSelected = (n: number) => {
     return selected.indexOf(n) !== -1;
+  };
+  const currencyFormat = (num) => {
+    return parseFloat(num).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).split('');
+  }
+  const formatarCampo = (row, options) => {
+
+    if (options.fieldType === 'price') {
+      return currencyFormat(row[options.id]);
+      // return `R$${row[options.id].replace(".", ",")}`
+    }
+
+    if (options.fieldType === 'date') {
+      return `${new Date(row[options.id]).toLocaleDateString()}`
+    }
+    if (options.fieldType === 'time') {
+      return `${row[options.id]}H`
+    }
+    if (options.fieldType === 'datetime') {
+
+      return moment(row[options.id]).locale('pt-br').format('lll');  // 22 de junho de 2023 às 20:44
+      // return moment(row[options.id]).format('MMMM Do YYYY, h:mm:ss a');
+    }
+    return row[options.id];
+
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -365,7 +391,7 @@ export default function EnhancedTable({
             <TableBody className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white">
               {visibleRows.map((row, index) => {
                 const isItemSelected = isSelected(Number(row.id));
-                const labelId = `enhanced-table-checkbox-${index}`;
+                const labelId = `enhanced - table - checkbox - ${index} `;
 
                 return (
                   <TableRow
@@ -397,9 +423,9 @@ export default function EnhancedTable({
                       <TableCell
                         key={index}
                         align="right"
-                        className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white"
+                        className="bg-white text-meta-4 dark:bg-boxdark-2 dark:text-white text-start"
                       >
-                        {row[item.id]}
+                        {formatarCampo(row, item)}
                       </TableCell>
                     ))}
                   </TableRow>
@@ -426,24 +452,14 @@ export default function EnhancedTable({
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={rowsFetch.length}
+          labelRowsPerPage="Items por página"
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        className="px-3 bg-gray text-body dark:bg-boxdark-2 dark:text-white"
-        control={
-          <Switch
-            color="default"
-            checked={dense}
-            onChange={handleChangeDense}
-            className="bg-gray text-body dark:bg-boxdark-2 dark:text-white"
-          />
-        }
-        label="Dense padding"
-      />
+
     </Box>
   );
 }

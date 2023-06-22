@@ -100,6 +100,7 @@ const SignIn = () => {
                 </InputAdornment>
               ),
             }}
+            type="text"
             variant="filled"
             label="Entre com email"
             className="w-full py-3 pl-6 pr-10 border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none "

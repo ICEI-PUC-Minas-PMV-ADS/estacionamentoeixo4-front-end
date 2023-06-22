@@ -12,6 +12,7 @@ export default class ReadEstacionamento extends ReadComponent {
       {
         id: "preco",
         numeric: true,
+        fieldType: "price",
         disablePadding: false,
         label: "Preco",
       },

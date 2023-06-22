@@ -1,5 +1,9 @@
 import { TextField, styled, InputProps } from "@mui/material";
+import React from "react";
 import { UseFormRegister } from "react-hook-form";
+import { IMaskInput } from "react-imask";
+import { NumericFormat, NumericFormatProps } from "react-number-format";
+import InputMask from "react-input-mask";
 
 export type TypeForm = {
   [key: string]: string | number;
@@ -15,7 +19,48 @@ type TProps = {
   onChange?: React.InputHTMLAttributes<unknown>["onChange"];
   InputProps?: InputProps;
   register: UseFormRegister<{ [key: string]: string | number }>;
+  mask?: string;
+  maxLength?: number;
 };
+
+interface InputFormatModel {
+  length: number;
+  mask: string;
+}
+
+interface CustomProps {
+  onChange: (event: { target: { name: string; value: string } }) => void;
+  name: string;
+}
+
+//Valor R$
+const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
+  function NumericFormatCustom(props, ref) {
+    const { onChange, ...other } = props;
+    return (
+      <NumericFormat
+        {...other}
+        getInputRef={ref}
+        onValueChange={(values) => {
+          onChange({
+            target: {
+              name: props.name,
+              value: values.floatValue?.toString() || "",
+            },
+          });
+        }}
+        thousandSeparator="."
+        decimalSeparator=","
+        valueIsNumericString
+        prefix="R$"
+        decimalScale={2}
+        fixedDecimalScale
+      />
+    );
+  }
+);
+
+
 
 const Field = ({
   id,
@@ -28,6 +73,8 @@ const Field = ({
   InputProps,
   onChange,
   register,
+  mask,
+  maxLength
 }: TProps) => {
   const CssTextField = styled(TextField)({
     ".MuiInputBase-root": {
@@ -76,8 +123,36 @@ const Field = ({
       label={label}
       variant={variant}
       onChange={onChange}
-      defaultValue={defaultValue}
-      InputProps={InputProps}
+      InputProps={{
+        inputComponent: mask !== "R$" ? React.forwardRef<NumericFormatProps, CustomProps>(
+          function TextMaskCNPJ(props, ref) {
+            const [value, setValue] = React.useState("");
+            const { onChange, ...other } = props;
+            return (
+              <InputMask
+                {...other}
+                mask={mask || ""}
+                value={value}
+                maxLength={maxLength}
+                maskChar={""} // Remove os caracteres não preenchidos da máscara
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  onChange({
+                    target: {
+                      name: props.name,
+                      value: e.currentTarget.value
+                    }
+                  })
+                  setValue(e.target.value)
+                }}
+                inputRef={ref as any}
+              />
+            );
+          }
+        ) as any : NumericFormatCustom,
+
+        ...InputProps
+      }}
+
       type={type}
     />
   );

@@ -2,23 +2,21 @@ import CrudComponent, { IForm } from "@src/components/CrudComponent";
 import CoockiesService from "@src/services/auth/CoockieService";
 import { GeocodingService } from "@src/services/google/geocoding";
 
-
-
 type TModel = {
-  preco: number,
-  vagas_preferenciais: number,
-  vagas_gerais: number,
-  razao_social
-  cnpj: string,
-  endereco: string,
-  cep: number
-  bairro: string,
-  cidade: string,
-  numero: number,
-  uf: string,
-  lat: number
-  lgt: number
-}
+  preco: number;
+  vagas_preferenciais: number;
+  vagas_gerais: number;
+  razao_social;
+  cnpj: string;
+  endereco: string;
+  cep: number;
+  bairro: string;
+  cidade: string;
+  numero: number;
+  uf: string;
+  lat: number;
+  lgt: number;
+};
 export default class FormEstacionamento extends CrudComponent {
   cookies: CoockiesService = new CoockiesService();
   constructor(props: any) {
@@ -37,18 +35,23 @@ export default class FormEstacionamento extends CrudComponent {
             bind: "preco",
             widthField: "w-[100%]",
             placeholder: "Preço",
+            mask: "R$",
           },
           {
             typeField: "text",
             widthField: "w-[100%]",
             bind: "vagas_preferenciais",
             placeholder: "Número de vagas preferenciais",
+            mask: "999",
+
           },
           {
             typeField: "text",
             widthField: "w-[100%]",
             bind: "vagas_gerais",
             placeholder: "Número de vagas gerais",
+            mask: "999",
+
           },
           {
             typeField: "text",
@@ -59,8 +62,8 @@ export default class FormEstacionamento extends CrudComponent {
             typeField: "text",
             bind: "cnpj",
             placeholder: "CNPJ",
+            mask: "99.999.999/9999-99",
           },
-
         ],
       },
       {
@@ -79,15 +82,15 @@ export default class FormEstacionamento extends CrudComponent {
             typeField: "text",
             bind: "cep",
             placeholder: "CEP",
+            mask: "99009-999"
           },
-        ]
+        ],
       },
       {
         typeField: "row",
         cols: 3,
         bind: null,
         childrens: [
-
           {
             typeField: "text",
             bind: "bairro",
@@ -98,6 +101,8 @@ export default class FormEstacionamento extends CrudComponent {
             typeField: "text",
             bind: "numero",
             placeholder: "Número",
+            mask: "9999",
+
           },
           {
             typeField: "text",
@@ -108,8 +113,9 @@ export default class FormEstacionamento extends CrudComponent {
             typeField: "text",
             bind: "uf",
             placeholder: "UF",
+            maxLength: 2
           },
-        ]
+        ],
       },
     ];
   }
@@ -135,18 +141,16 @@ export default class FormEstacionamento extends CrudComponent {
 
   // Método que faz um beforeChangeModel antes de fazer requisição
   async modelChangeData(model: TModel) {
-
-    const address = `${model?.cidade} ${model?.bairro} ${model?.endereco} ${model?.numero}`;
-    try {
-      const { lat, lng } = await GeocodingService.getGeocodingByAddress(address)
-      //  Chama o serviço do google e seta a longitude e latitude 
-      model.lat = lat
-      model.lgt = lng
-      return model;
-
-    } catch (err) {
-      console.error(err)
-    }
+    console.log(">>>>> modelChangeData");
+    // const address = `${model?.cidade} ${model?.bairro} ${model?.endereco} ${model?.numero}`;
+    // try {
+    //   const { lat, lng } = await GeocodingService.getGeocodingByAddress(address)
+    //   //  Chama o serviço do google e seta a longitude e latitude
+    //   model.lat = lat
+    //   model.lgt = lng
+    //   return model;
+    // } catch (err) {
+    //   console.error(err)
+    // }
   }
-
 }
