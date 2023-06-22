@@ -19,13 +19,15 @@ export default class ReadReservar extends ReadComponent {
         id: "duracao",
         numeric: true,
         disablePadding: false,
-        label: "Duracao",
+        fieldType: "time",
+        label: "Duração",
       },
       {
         id: "horario_reserva",
         numeric: true,
         disablePadding: false,
         label: "Horário da reserva",
+        fieldType: "datetime"
       },
       {
         id: "razao_social",
