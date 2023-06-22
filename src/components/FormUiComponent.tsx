@@ -68,8 +68,20 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
     const objParser = {};
     Object.keys(data).map((item) => {
       if (item === "cnpj") {
-        objParser[item] = data[item];
+        let cnpj = data[item].replaceAll('.', '')
+        cnpj = cnpj.replace('/', '')
+        cnpj = cnpj.replace('-', '')
+        objParser[item] = cnpj;
+      } else if (item === "cep") {
+        objParser[item] = Number(data[item].replace("-", ""))
       } else {
+        if (typeof data[item] === "string") {
+          if (data[item]?.includes("R$")) {
+            data[item] = data[item].replace("R$", "")//Remove o R$
+            data[item] = data[item].replace(",", ".")//Substitui a , por ponto
+            data[item] = parseFloat(data[item]);//ParseFloat
+          }
+        }
         // Verifica se  é number
         const onlyNumbers = new RegExp("^[0-9]+$");
         if (onlyNumbers.test(data[item])) {

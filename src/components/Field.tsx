@@ -123,7 +123,6 @@ const Field = ({
       label={label}
       variant={variant}
       onChange={onChange}
-      inputProps={{ maxLength: maxLength ? maxLength : 100 }}
       InputProps={{
         inputComponent: mask !== "R$" ? React.forwardRef<NumericFormatProps, CustomProps>(
           function TextMaskCNPJ(props, ref) {
@@ -134,6 +133,7 @@ const Field = ({
                 {...other}
                 mask={mask || ""}
                 value={value}
+                maxLength={maxLength}
                 maskChar={""} // Remove os caracteres não preenchidos da máscara
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   onChange({
