@@ -63,6 +63,7 @@ const Header = (props) => {
           pathname !== "/signin" && (
             <div className="hidden sm:block">
               <form
+              className="hidden"
                 action="https://formbold.com/s/unique_form_id"
                 method="POST"
               >

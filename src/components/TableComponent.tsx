@@ -315,9 +315,9 @@ export default function EnhancedTable({
     setPage(0);
   };
 
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  };
+  // const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setDense(event.target.checked);
+  // };
 
   const isSelected = (n: number) => {
     return selected.indexOf(n) !== -1;
@@ -432,7 +432,7 @@ export default function EnhancedTable({
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
+      {/* <FormControlLabel
         className="px-3 bg-gray text-body dark:bg-boxdark-2 dark:text-white"
         control={
           <Switch
@@ -443,7 +443,7 @@ export default function EnhancedTable({
           />
         }
         label="Dense padding"
-      />
+      /> */}
     </Box>
   );
 }
