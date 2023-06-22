@@ -426,6 +426,7 @@ export default function EnhancedTable({
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={rowsFetch.length}
+          labelRowsPerPage="Items por página"
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
