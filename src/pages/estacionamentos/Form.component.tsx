@@ -35,6 +35,7 @@ export default class FormEstacionamento extends CrudComponent {
             bind: "preco",
             widthField: "w-[100%]",
             placeholder: "Preço",
+            mask: "",
           },
           {
             typeField: "text",

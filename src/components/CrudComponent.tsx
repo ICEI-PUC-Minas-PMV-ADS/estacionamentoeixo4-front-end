@@ -18,6 +18,7 @@ export interface IForm {
     | "field";
   options?: { key: string | number; value: string | number }[];
   childrens?: IForm[];
+  mask?: string;
 }
 
 type TState = {

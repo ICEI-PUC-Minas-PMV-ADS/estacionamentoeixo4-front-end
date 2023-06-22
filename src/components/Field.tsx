@@ -1,5 +1,8 @@
 import { TextField, styled, InputProps } from "@mui/material";
+import React from "react";
 import { UseFormRegister } from "react-hook-form";
+import { IMaskInput } from "react-imask";
+import { NumericFormat, NumericFormatProps } from "react-number-format";
 
 export type TypeForm = {
   [key: string]: string | number;
@@ -15,7 +18,65 @@ type TProps = {
   onChange?: React.InputHTMLAttributes<unknown>["onChange"];
   InputProps?: InputProps;
   register: UseFormRegister<{ [key: string]: string | number }>;
+  mask?: string;
 };
+
+interface InputFormatModel {
+  length: number;
+  mask: string;
+}
+
+interface CustomProps {
+  onChange: (event: { target: { name: string; value: string } }) => void;
+  name: string;
+}
+
+const TextMaskCustom = React.forwardRef<React.ReactElement, CustomProps>(
+  function TextMaskCustom(props, ref) {
+    const [value, setValue] = React.useState("");
+    const { onChange, ...other } = props;
+    return (
+      <IMaskInput
+        {...other}
+        defaultValue={value}
+        mask="(#00) 000-0000"
+        definitions={{
+          "#": /[1-9]/,
+        }}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          setValue(e.currentTarget.value);
+        }}
+        inputRef={ref}
+      />
+    );
+  }
+);
+
+const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
+  function NumericFormatCustom(props, ref) {
+    const { onChange, ...other } = props;
+    return (
+      <NumericFormat
+        {...other}
+        getInputRef={ref}
+        onValueChange={(values) => {
+          onChange({
+            target: {
+              name: props.name,
+              value: values.floatValue?.toString() || "",
+            },
+          });
+        }}
+        thousandSeparator="."
+        decimalSeparator=","
+        valueIsNumericString
+        prefix="R$"
+        decimalScale={2}
+        fixedDecimalScale
+      />
+    );
+  }
+);
 
 const Field = ({
   id,
@@ -28,6 +89,7 @@ const Field = ({
   InputProps,
   onChange,
   register,
+  mask,
 }: TProps) => {
   const CssTextField = styled(TextField)({
     ".MuiInputBase-root": {
@@ -77,7 +139,12 @@ const Field = ({
       variant={variant}
       onChange={onChange}
       defaultValue={defaultValue}
-      InputProps={InputProps}
+      InputProps={{
+        inputComponent: NumericFormatCustom as any,
+      }}
+      inputProps={{
+        maxLength: 10,
+      }}
       type={type}
     />
   );

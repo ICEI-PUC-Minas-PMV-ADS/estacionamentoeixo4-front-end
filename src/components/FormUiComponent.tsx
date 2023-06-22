@@ -11,55 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { GeocodingService } from "@src/services/google/geocoding";
 
-// interface CustomProps {
-//   onChange: (event: { target: { name: string; value: string } }) => void;
-//   name: string;
-// }
-
-// const TextMaskCustom = React.forwardRef<React.ReactElement, CustomProps>(
-//   function TextMaskCustom(props, ref) {
-//     const [value, setValue] = React.useState("");
-//     const { onChange, ...other } = props;
-//     return (
-//       <IMaskInput
-//         {...other}
-//         defaultValue={value}
-//         mask="(#00) 000-0000"
-//         definitions={{
-//           "#": /[1-9]/,
-//         }}
-//         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-//           setValue(e.currentTarget.value);
-//         }}
-//         inputRef={ref}
-//       />
-//     );
-//   }
-// );
-
-// const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
-//   function NumericFormatCustom(props, ref) {
-//     const { onChange, ...other } = props;
-//     return (
-//       <NumericFormat
-//         {...other}
-//         getInputRef={ref}
-//         onValueChange={(values) => {
-//           onChange({
-//             target: {
-//               name: props.name,
-//               value: values.value,
-//             },
-//           });
-//         }}
-//         thousandSeparator
-//         valueIsNumericString
-//         prefix="$"
-//       />
-//     );
-//   }
-// );
-
 export interface IProps {
   model: object;
   title: string;
@@ -190,6 +141,7 @@ const FormUiComponent = ({ model, title, service, fields }: IProps) => {
                             className={`${
                               child.widthField ? child.widthField : "w-full"
                             } rounded-lg border border-stroke py-3 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none`}
+                            mask={child.mask}
                           />
                         )
                       );
